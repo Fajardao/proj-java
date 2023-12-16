@@ -9,5 +9,9 @@ public class Main {
         System.out.println("O                       O");
         System.out.println("XOXOXOXOXOXOXOXOXOXOXOXOX");
 
+        System.out.println("Escolha uma opção: ");
+        
+
+
     }
 }
