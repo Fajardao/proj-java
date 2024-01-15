@@ -99,7 +99,7 @@ public class Main {
 
         Utilizadores user = new Utilizadores(username, password, nome, true, email, "user");
 
-        
+        teste
 
     }
 }
