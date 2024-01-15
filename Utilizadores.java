@@ -16,4 +16,18 @@ public class Utilizadores {
         this.tipo = ttipo;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public boolean verificaPassword(String pass) {
+        if (pass.equals(password)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+
 }

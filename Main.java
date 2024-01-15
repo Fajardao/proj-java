@@ -1,7 +1,13 @@
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
+
+    private static List<Utilizadores> users = new ArrayList<>();
+    Scanner sc = new Scanner(System.in);
+
     public static void main(String[] args) {
         
         Scanner scanner = new Scanner(System.in);
@@ -9,7 +15,7 @@ public class Main {
 
         while (loop == true) {
 
-            clearScreen();
+            //clearScreen();
 
             System.out.println("XOXOXOXOXOXOXOXOXOXOXOXOX");
             System.out.println("O                       O");
@@ -31,6 +37,7 @@ public class Main {
                     break;
                 case 2:
                     System.out.println("Registar");
+                    registar();
                     break;
                 case 3:
                     System.out.println("A terminar...");
@@ -69,6 +76,28 @@ public class Main {
         System.out.println("Password: ");
         String password = scanner.nextLine();
 
+        Utilizadores user = null;
+
+        for (Utilizadores localUser : users) {
+            if (localUser.getEmail().equals(email)) {
+                user = localUser;
+                break;
+            }
+        }
+
+        if (user != null) {
+            System.out.println("Utilizador encontrado");
+            if (user.verificaPassword(password)) {
+                System.out.println("Password correta");
+            } else {
+                System.out.println("Password incorreta");
+            }
+        } else {
+            System.out.println("Utilizador não encontrado");
+        }
+
+        scanner.nextLine();
+
 
     }
 
@@ -97,9 +126,10 @@ public class Main {
             System.out.println("Passwords diferentes");
         }
 
-        Utilizadores user = new Utilizadores(username, password, nome, true, email, "user");
+        String tipo = "user";
 
-        teste
+        Utilizadores user = new Utilizadores(username, password, nome, true, email, tipo);
+        users.add(user);
 
     }
 }
