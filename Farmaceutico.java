@@ -24,4 +24,12 @@ public class Farmaceutico {
 
     }
 
+
+    public int getNif(){
+        return nif;
+    }
+
+    public int getTelefone(){
+        return telefone;
+    }
 }

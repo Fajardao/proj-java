@@ -21,7 +21,14 @@ public class Cliente {
         this.nif = nnif;
         this.morada = mmorada;
         this.telefone = ttelefone;
+    }
 
+    public int getNif(){
+        return nif;
+    }
+
+    public int getTelefone(){
+        return telefone;
     }
 
 }

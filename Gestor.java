@@ -13,6 +13,5 @@ public class Gestor {
         this.estado=eestado;
         this.email=eemail;
         this.tipo=ttipo;
-
     }
 }
