@@ -1,4 +1,5 @@
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Set;
 
 public class Utilizadores implements Serializable {
@@ -9,10 +10,9 @@ public class Utilizadores implements Serializable {
     private boolean estado;
     private String email;
     private String tipo;
-    private static Set <String> loginsUsados=new HashSet<>();//******************************************************************************* */
-    private static Set<E> <String> emailsUsados=new HashSet();
-    private String nome;
-    Private String email;
+    private static Set <String> loginsUsados=new HashSet();//******************************************************************************* */
+    private static Set <String> emailsUsados=new HashSet();
+
 
 
 

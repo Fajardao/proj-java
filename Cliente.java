@@ -44,7 +44,13 @@ public class Cliente {
     }
     private boolean verificaUnicidade(int nnif, int ttelefone) {
         boolean nifUnico= !nifsUsados.contains(nnif);
-        boolean telefoneUnico=!telefonesUsados.contains(ttelefone);
+        boolean telefoneUnico = !telefonesUsados.contains(ttelefone);
+        
+        if (nifUnico && telefoneUnico) {
+            return true;
+        } else {
+            return false;
+        }
 
     }
 
