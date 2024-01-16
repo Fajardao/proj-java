@@ -41,7 +41,6 @@ public class Medicamento {
         }
     }
 
-
     public List<Categoria> getCategorias() {
         return categorias;
     }

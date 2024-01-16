@@ -9,7 +9,8 @@ import java.io.ObjectOutputStream;
 
 public class Main {
 
-    private static List<Utilizadores> users = new ArrayList<>();
+    private static List<Utilizadores> users = new ArrayList<>(); tipo users 
+                                                                  estado falso
     private static Scanner scanner = new Scanner(System.in);
     private static int erro = 0;
     private static int firstRun = 0;
@@ -163,8 +164,6 @@ public class Main {
         clearScreen();
 
         System.out.println("Bem-vindo " + user.getNome() + "\n");
-
-
 
     }
 

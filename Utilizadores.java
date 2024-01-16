@@ -1,4 +1,5 @@
 import java.io.Serializable;
+import java.util.Set;
 
 public class Utilizadores implements Serializable {
 
@@ -8,7 +9,14 @@ public class Utilizadores implements Serializable {
     private boolean estado;
     private String email;
     private String tipo;
+    private static Set <String> loginsUsados=new HashSet<>();//******************************************************************************* */
+    private static Set<E> <String> emailsUsados=new HashSet();
+    private String nome;
+    Private String email;
 
+
+
+    
     public Utilizadores(String llogin, String ppassword, String nnome, boolean eestado, String eemail, String ttipo) {
         this.login = llogin;
         this.password = ppassword;
@@ -16,6 +24,12 @@ public class Utilizadores implements Serializable {
         this.estado = eestado;
         this.email = eemail;
         this.tipo = ttipo;
+
+        if (loginsUsados.contains(login)|| emailsUsados.contains(email)){
+        } else{
+            loginsUsados.add(login);
+            emailsUsados.add(email);
+        }
     }
 
     public String getEmail() {
@@ -37,5 +51,20 @@ public class Utilizadores implements Serializable {
     public String getNome() {
         return nome;
     }
+
+
+
+    //R4
+    //Criação de um metodo para verificar se o login do usuario
+    //que quer fazer alterações nas informações é igual ao login
+    //que foi passado como parametro, visto que cada utilizador
+    //apenas pode alterar a sua propria informaçao
+
+
+    public boolean podeAlterarInformacao(String loginAtual){
+        return this.login.equals(loginAtual);
+    }
+
+    //R5. O login e email devem ser unicos 
 
 }
