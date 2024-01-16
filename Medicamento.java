@@ -15,6 +15,8 @@ public class Medicamento {
     private boolean autorizacaoMedica;
     private boolean generico;
     private List<Categoria> categorias; //categorias é uma lista de objetos da classe Categoria
+    private List<Excipiente> excipientes; //excipientes é uma lista de objetos da classe Excipiente
+
 
     public Medicamento(String ddesignacao, String mmarca, String llaboratorio, String llote, Componente ccomponenteActivo, String ddosagem, int qquantidadeStock, double pprecoVenda, int aanoFabrico, boolean aautorizacaoMedica, boolean ggenerico) {
         this.designacao = ddesignacao;
@@ -29,6 +31,7 @@ public class Medicamento {
         this.autorizacaoMedica = aautorizacaoMedica;
         this.generico = ggenerico;
         this.categorias=new ArrayList<>();
+        this.excipientes=new ArrayList<>();
     }
     public void adicionarCategoria(Categoria categoria) {
         if (categorias.size() < 3) {
@@ -38,9 +41,21 @@ public class Medicamento {
         }
     }
 
+
     public List<Categoria> getCategorias() {
         return categorias;
     }
 
+    public void adcionarExcipientes(Excipiente excipiente){
+        if(excipientes.size() < 5){
+            excipientes.add(excipiente);
+        } else {
+            System.out.println("Não é possível adcionar mais excipientes a este medicamento.");
+        }
+    }
+
+    public List<Excipiente> getExcipientes(){
+        return excipientes;
+    }
 
 }
