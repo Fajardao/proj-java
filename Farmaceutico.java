@@ -32,4 +32,8 @@ public class Farmaceutico {
     public int getTelefone(){
         return telefone;
     }
+
+
+
+    
 }
