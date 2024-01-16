@@ -1,4 +1,6 @@
-public class Utilizadores {
+import java.io.Serializable;
+
+public class Utilizadores implements Serializable {
     
     private String login;
     private String password;
@@ -15,5 +17,19 @@ public class Utilizadores {
         this.email = eemail;
         this.tipo = ttipo;
     }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public boolean verificaPassword(String pass) {
+        if (pass.equals(password)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
 
 }

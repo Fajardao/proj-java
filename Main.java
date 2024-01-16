@@ -1,11 +1,24 @@
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
+import java.io.FileInputStream;
+import java.io.ObjectInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 
 public class Main {
+
+    private static List<Utilizadores> users = new ArrayList<>();
+    private static List<Utilizadores> gestores = new ArrayList<>();
+    private static Scanner scanner = new Scanner(System.in);
+    private static int erro = 0;
+
     public static void main(String[] args) {
-        
-        Scanner scanner = new Scanner(System.in);
+
         boolean loop = true;
+
+        load();
 
         while (loop == true) {
 
@@ -19,21 +32,31 @@ public class Main {
             System.out.println("O                       O");
             System.out.println("XOXOXOXOXOXOXOXOXOXOXOXOX");
 
+            if (erro == 1) {
+                System.out.println("\u001B[31mERRO:\u001B[0m Não existe dados anteriores guardados.");
+            }
+
             System.out.println("Escolha uma opção: ");
             int opcao = scanner.nextInt();
+            scanner.nextLine();
 
             System.out.println("Opção escolhida: " + opcao);
 
             switch (opcao) {
                 case 1:
                     System.out.println("Login");
+                    scanner.reset();
                     login();
                     break;
                 case 2:
                     System.out.println("Registar");
+                    registar();
+                    scanner.nextLine();
+                    scanner.nextLine();
                     break;
                 case 3:
                     System.out.println("A terminar...");
+                    save();
                     loop = false;
                     break;
                 default:
@@ -41,9 +64,12 @@ public class Main {
                     break;
             }
 
-        }
+            if (loop == true) {
+                System.out.println("Prima enter para continuar");
+                scanner.nextLine();
+            }
 
-        scanner.close();
+        }
 
     }
 
@@ -61,7 +87,7 @@ public class Main {
 
     public static void login() {
 
-        Scanner scanner = new Scanner(System.in);
+        clearScreen();
 
         System.out.println("\nE-mail: ");
         String email = scanner.nextLine();
@@ -69,12 +95,31 @@ public class Main {
         System.out.println("Password: ");
         String password = scanner.nextLine();
 
+        Utilizadores user = null;
+
+        for (Utilizadores localUser : users) {
+            if (localUser.getEmail().equals(email)) {
+                user = localUser;
+                break;
+            }
+        }
+
+        if (user != null) {
+            System.out.println("Utilizador encontrado");
+            if (user.verificaPassword(password)) {
+                System.out.println("Password correta");
+            } else {
+                System.out.println("Password incorreta");
+            }
+        } else {
+            System.out.println("Utilizador não encontrado");
+        }
 
     }
 
     public static void registar() {
 
-        Scanner scanner = new Scanner(System.in);
+        clearScreen();
 
         System.out.println("\nUsername: ");
         String username = scanner.nextLine();
@@ -97,9 +142,57 @@ public class Main {
             System.out.println("Passwords diferentes");
         }
 
-        Utilizadores user = new Utilizadores(username, password, nome, true, email, "user");
+        if (erro == 1) {
+            Utilizadores gestor = new Utilizadores(username, password, nome, true, email, "gestor");
+            gestores.add(gestor);
+        } else {
+            Utilizadores user = new Utilizadores(username, password, nome, false, email, "user");
+            users.add(user);
+        }
 
+<<<<<<< HEAD
         
+=======
+        System.out.println("Utilizador registado com sucesso\n");
+>>>>>>> 51d1a73a9c3c17caf3fbe78128dea0414f4594da
 
+    }
+
+    public static void save() {
+        System.out.println("A guardar...");
+        try {
+            FileOutputStream fileOut = new FileOutputStream("dados_apl.dat");
+            ObjectOutputStream out = new ObjectOutputStream(fileOut);
+            Files data = new Files(users);
+            // Adicione outros dados ao objeto data aqui
+            out.writeObject(data);
+            out.close();
+            fileOut.close();
+        } catch (IOException i) {
+            i.printStackTrace();
+        }
+    }
+
+    public static void load() {
+        System.out.println("A carregar...");
+        try {
+            FileInputStream fileIn = new FileInputStream("dados_apl.dat");
+            ObjectInputStream in = new ObjectInputStream(fileIn);
+            Object obj = in.readObject();
+            if (obj instanceof Files) {
+                Files data = (Files) obj;
+                users = data.getUsers();
+                // Carregue outros dados do objeto data aqui
+            } else {
+                System.out.println("Data is not of type Data");
+            }
+            in.close();
+            fileIn.close();
+        } catch (IOException i) {
+            erro = 1;
+        } catch (ClassNotFoundException c) {
+            System.out.println("Class not found");
+            c.printStackTrace();
+        }
     }
 }
