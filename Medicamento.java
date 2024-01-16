@@ -2,6 +2,7 @@ public class Medicamento {
 
     private String designacao;
     private String marca;
+    private String laboratorio;
     private String lote;
     private Componente componenteActivo;
     private String dosagem;
@@ -11,9 +12,10 @@ public class Medicamento {
     private boolean autorizacaoMedica;
     private boolean generico;
 
-    public Medicamento(String ddesignacao, String mmarca, String llote, Componente ccomponenteActivo, String ddosagem, int qquantidadeStock, double pprecoVenda, int aanoFabrico, boolean aautorizacaoMedica, boolean ggenerico) {
+    public Medicamento(String ddesignacao, String mmarca, String llaboratorio, String llote, Componente ccomponenteActivo, String ddosagem, int qquantidadeStock, double pprecoVenda, int aanoFabrico, boolean aautorizacaoMedica, boolean ggenerico) {
         this.designacao = ddesignacao;
         this.marca = mmarca;
+        this.laboratorio = llaboratorio;
         this.lote = llote;
         this.componenteActivo = ccomponenteActivo;
         this.dosagem = ddosagem;
