@@ -16,7 +16,7 @@ public class Utilizadores implements Serializable {
 
 
 
-    
+
     public Utilizadores(String llogin, String ppassword, String nnome, boolean eestado, String eemail, String ttipo) {
         this.login = llogin;
         this.password = ppassword;
@@ -26,6 +26,7 @@ public class Utilizadores implements Serializable {
         this.tipo = ttipo;
 
         if (loginsUsados.contains(login)|| emailsUsados.contains(email)){
+            System.out.println("O email ou user já estão a ser usados");
         } else{
             loginsUsados.add(login);
             emailsUsados.add(email);
