@@ -168,6 +168,18 @@ public class Main {
 
     }
 
+    public static void encerrarPrograma(){
+       
+        clearScreen();
+        
+        if(user!=null){
+            System.out.println("Adeus "+user.getNome());
+        }else{
+            System.out.println("Adeus");
+        }
+        save();
+    }
+
     public static void save() {
         System.out.println("A guardar...");
         try {
