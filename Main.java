@@ -10,9 +10,11 @@ import java.io.ObjectOutputStream;
 public class Main {
 
     private static List<Utilizadores> users = new ArrayList<>();
-    private static List<Utilizadores> gestores = new ArrayList<>();
     private static Scanner scanner = new Scanner(System.in);
     private static int erro = 0;
+    private static int firstRun = 0;
+
+    private static Utilizadores user;
 
     public static void main(String[] args) {
 
@@ -68,20 +70,6 @@ public class Main {
                 System.out.println("Prima enter para continuar");
                 scanner.nextLine();
             }
-
-        }
-
-    }
-
-    public static void clearScreen() {
-        try {
-            if (System.getProperty("os.name").contains("Windows")) {
-                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-            } else {
-                System.out.print("\033[H\033[2J");
-                System.out.flush();
-            }
-        } catch (IOException | InterruptedException ex) {
         }
     }
 
@@ -95,8 +83,6 @@ public class Main {
         System.out.println("Password: ");
         String password = scanner.nextLine();
 
-        Utilizadores user = null;
-
         for (Utilizadores localUser : users) {
             if (localUser.getEmail().equals(email)) {
                 user = localUser;
@@ -104,22 +90,40 @@ public class Main {
             }
         }
 
+        int valid = 0;
+
         if (user != null) {
             System.out.println("Utilizador encontrado");
             if (user.verificaPassword(password)) {
                 System.out.println("Password correta");
+                if (user.getAtivo()) {
+                    System.out.println("Utilizador ativo");
+                    valid = 1;
+                } else {
+                    System.out.println("Utilizador inativo");
+                }
             } else {
                 System.out.println("Password incorreta");
             }
         } else {
             System.out.println("Utilizador não encontrado");
+        
         }
-
+        if (valid == 1) {
+            afterLogin();
+        }
     }
+
 
     public static void registar() {
 
         clearScreen();
+
+        if (firstRun == 1) {
+            System.out.println("Registo de gestor (primeira execução):");
+        } else {
+            System.out.println("Registo de utilizador:");
+        }
 
         System.out.println("\nUsername: ");
         String username = scanner.nextLine();
@@ -142,19 +146,26 @@ public class Main {
             System.out.println("Passwords diferentes");
         }
 
-        if (erro == 1) {
-            Utilizadores gestor = new Utilizadores(username, password, nome, true, email, "gestor");
-            gestores.add(gestor);
+        if (firstRun == 1) {
+            Utilizadores user = new Utilizadores(username, password, nome, true, email, "gestor");
+            users.add(user);
         } else {
             Utilizadores user = new Utilizadores(username, password, nome, false, email, "user");
             users.add(user);
         }
 
-<<<<<<< HEAD
         
-=======
         System.out.println("Utilizador registado com sucesso\n");
->>>>>>> 51d1a73a9c3c17caf3fbe78128dea0414f4594da
+
+    }
+
+    public static void afterLogin() {
+
+        clearScreen();
+
+        System.out.println("Bem-vindo " + user.getNome() + "\n");
+
+
 
     }
 
@@ -190,9 +201,24 @@ public class Main {
             fileIn.close();
         } catch (IOException i) {
             erro = 1;
+            firstRun = 1;
+            registar();
         } catch (ClassNotFoundException c) {
             System.out.println("Class not found");
             c.printStackTrace();
         }
     }
+
+    public static void clearScreen() {
+        try {
+            if (System.getProperty("os.name").contains("Windows")) {
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            } else {
+                System.out.print("\033[H\033[2J");
+                System.out.flush();
+            }
+        } catch (IOException | InterruptedException ex) {
+        }
+    }
+
 }

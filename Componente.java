@@ -1,5 +1,5 @@
 public class Componente {
-    
+
     private String designacao;
     private String codigo;
     private int quantidade;

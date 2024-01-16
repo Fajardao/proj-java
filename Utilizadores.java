@@ -1,7 +1,7 @@
 import java.io.Serializable;
 
 public class Utilizadores implements Serializable {
-    
+
     private String login;
     private String password;
     private String nome;
@@ -30,6 +30,12 @@ public class Utilizadores implements Serializable {
         }
     }
 
+    public boolean getAtivo() {
+        return estado;
+    }
 
+    public String getNome() {
+        return nome;
+    }
 
 }
