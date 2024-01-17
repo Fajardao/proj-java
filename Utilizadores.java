@@ -24,7 +24,7 @@ public class Utilizadores implements Serializable {
         this.estado = eestado;
         this.email = eemail;
         this.tipo = ttipo;
-
+        
         if (loginsUsados.contains(login)|| emailsUsados.contains(email)){
             System.out.println("O email ou user já estão a ser usados");
         } else{
