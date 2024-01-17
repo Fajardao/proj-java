@@ -16,13 +16,15 @@ public class Main {
     private static List<Medicamento> medicamentos = new ArrayList<>();
     private static List<Componente> componentes = new ArrayList<>();
     private static List<Encomenda> encomendas = new ArrayList<>();
+    private static List<Categoria> categorias = new ArrayList<>();
+    private static List<Excipiente> excipientes = new ArrayList<>();
     private static Scanner scanner = new Scanner(System.in);
     private static int erro = 0;
     private static int firstRun = 0;
 
     private static Utilizadores user;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
 
         boolean loop = true;
 
@@ -35,7 +37,7 @@ public class Main {
 
         while (loop == true) {
 
-            //clearScreen();
+            clearScreen();
 
             user = null;
 
@@ -72,19 +74,7 @@ public class Main {
                     loop = false;
                     break;
 
-                case 4:
-
-                    System.out.println("Menu gestor");
-                    MenuGestor.menuGestor(users.get(0), users, farmaceuticos, clientes, medicamentos, componentes,
-                            encomendas);
-                    break;
-
-                case 5:
-
-                    System.out.println("Menu cliente");
-                    MenuCliente.menuCliente(clientes.get(0), medicamentos, componentes, encomendas);
-                    break;
-                case 6:
+                case 99:
                     System.out.println("-----DUMP-----");
 
                     System.out.println("\nUtilizadores:");
@@ -101,6 +91,7 @@ public class Main {
                     for (Cliente localCliente : clientes) {
                         System.out.println(localCliente.getNome());
                     }
+                    break;
                 default:
                     System.out.println("Opção inválida");
                     break;
@@ -113,9 +104,9 @@ public class Main {
         }
     }
     
-    public static void login() {
+    public static void login() throws IOException {
 
-        //clearScreen();
+        clearScreen();
 
         System.out.println("\nE-mail: ");
         String email = scanner.nextLine();
@@ -174,9 +165,9 @@ public class Main {
     }
 
 
-    public static void registar() {
+    public static void registar() throws IOException {
 
-        //clearScreen();
+        clearScreen();
 
         if (firstRun == 1) {
             System.out.println("Registo de gestor (primeira execução):");
@@ -244,7 +235,7 @@ public class Main {
 
     }
 
-    public static void afterLogin() {
+    public static void afterLogin() throws IOException {
 
         clearScreen();
 
@@ -253,7 +244,7 @@ public class Main {
         } else if (user.getTipo().equals("user")) {
             MenuCliente.menuCliente((Cliente) user, medicamentos, componentes, encomendas);
         } else if (user.getTipo().equals("farmaceutico")) {
-            MenuFarmaceutico.menuFarmaceutico((Farmaceutico) user, medicamentos, componentes, encomendas);
+            MenuFarmaceutico.menuFarmaceutico((Farmaceutico) user, medicamentos, componentes, encomendas, categorias, excipientes);
         } else {
             System.out.println("Tipo de utilizador inválido");
         }
@@ -287,7 +278,7 @@ public class Main {
         }
     }
 
-    public static void load() {
+    public static void load() throws IOException {
         System.out.println("A carregar...");
         try {
             FileInputStream fileIn = new FileInputStream("dados_apl.dat");

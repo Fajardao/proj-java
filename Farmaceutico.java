@@ -1,3 +1,5 @@
+import java.io.IOException;
+
 public class Farmaceutico extends Utilizadores {
 
     private String login;
@@ -10,7 +12,7 @@ public class Farmaceutico extends Utilizadores {
     private String morada;
     private int telefone;
 
-    public Farmaceutico(String llogin, String ppassword, String nnome, boolean eestado, String eemail, String ttipo, int nnif, String mmorada, int ttelefone) {
+    public Farmaceutico(String llogin, String ppassword, String nnome, boolean eestado, String eemail, String ttipo, int nnif, String mmorada, int ttelefone) throws IOException {
 
         super(llogin, ppassword, nnome, eestado, eemail, ttipo);
         this.nif = nnif;

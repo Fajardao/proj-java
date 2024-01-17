@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -7,7 +8,7 @@ public class Cliente extends Utilizadores {
     private String morada;
     private int telefone;
 
-    public Cliente(String llogin, String ppassword, String nnome, boolean eestado, String eemail, String ttipo, int nnif, String mmorada, int ttelefone) {
+    public Cliente(String llogin, String ppassword, String nnome, boolean eestado, String eemail, String ttipo, int nnif, String mmorada, int ttelefone) throws IOException {
 
         super(llogin, ppassword, nnome, eestado, eemail, ttipo);
         this.nif = nnif;

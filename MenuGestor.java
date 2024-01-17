@@ -1,5 +1,6 @@
 import java.util.Scanner;
 import java.util.List;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class MenuGestor{
@@ -16,7 +17,7 @@ public class MenuGestor{
 
     private static Scanner scanner2 = new Scanner(System.in);
 
-    public static void menuGestor(Utilizadores atualUser, List<Utilizadores> users, List<Farmaceutico> farmaceuticos, List<Cliente> clientes, List<Medicamento> medicamentos, List<Componente> componentes,  List<Encomenda> encomendas) {
+    public static void menuGestor(Utilizadores atualUser, List<Utilizadores> users, List<Farmaceutico> farmaceuticos, List<Cliente> clientes, List<Medicamento> medicamentos, List<Componente> componentes,  List<Encomenda> encomendas) throws IOException {
 
         MenuGestor.users = users;
         MenuGestor.farmaceuticos = farmaceuticos;
@@ -25,19 +26,13 @@ public class MenuGestor{
         MenuGestor.componentes = componentes;
         MenuGestor.encomendas = encomendas;
 
-        System.out.println("Lista de utilizadores");
-        for (Utilizadores utilizador : clientes) {
-            System.out.println(utilizador);
-        }
-        System.out.println("-----------------");
-
         user = atualUser;
 
         boolean loop = true;
 
         while (loop) {
 
-            // Main.clearScreen();
+            Main.clearScreen();
 
             int opcao = 10;
 
@@ -94,6 +89,8 @@ public class MenuGestor{
 
     private static void confirmarEncomendas() {
 
+        Main.clearScreen();
+
         int i = 1;
 
 
@@ -132,6 +129,8 @@ public class MenuGestor{
 
     private static Farmaceutico selectFarmaceutico() {
 
+        Main.clearScreen();
+
         int i = 1;
 
 
@@ -164,6 +163,8 @@ public class MenuGestor{
     }
 
     private static void editarDadosPessoais() {
+
+        Main.clearScreen();
 
         System.out.println("O que pretende alterar?");
 
@@ -206,6 +207,8 @@ public class MenuGestor{
 
     private static void validarUsers() {
 
+        Main.clearScreen();
+
         int i = 1;
 
         List<String> notActive = new ArrayList<String>();
@@ -241,7 +244,9 @@ public class MenuGestor{
         }
     }
 
-    private static void adicionarGestor() {
+    private static void adicionarGestor() throws IOException {
+
+        Main.clearScreen();
 
         System.out.println("Nome: ");
         String nome = scanner2.nextLine();
@@ -268,7 +273,9 @@ public class MenuGestor{
 
     }
 
-    private static void adicionarFarmaceutico() {
+    private static void adicionarFarmaceutico() throws IOException {
+
+        Main.clearScreen();
 
         System.out.println("Nome: ");
         String nome = scanner2.nextLine();

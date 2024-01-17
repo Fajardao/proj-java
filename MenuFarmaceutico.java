@@ -10,19 +10,23 @@ public class MenuFarmaceutico {
     private static List<Medicamento> medicamentos = new ArrayList<>();
     private static List<Componente> componentes = new ArrayList<>();
     private static List<Encomenda> encomendas = new ArrayList<>();
+    private static List<Categoria> categorias = new ArrayList<>();
+    private static List<Excipiente> excipientes = new ArrayList<>();
 
-    public static void menuFarmaceutico(Farmaceutico atualUser, List<Medicamento> medicamentos,List<Componente> componentes, List<Encomenda> encomendas) {
+    public static void menuFarmaceutico(Farmaceutico atualUser, List<Medicamento> medicamentos, List<Componente> componentes, List<Encomenda> encomendas, List<Categoria> categorias, List<Excipiente> excipientes) {
 
         user = atualUser;
         MenuFarmaceutico.medicamentos = medicamentos;
         MenuFarmaceutico.componentes = componentes;
         MenuFarmaceutico.encomendas = encomendas;
+        MenuFarmaceutico.categorias = categorias;
+        MenuFarmaceutico.excipientes = excipientes;
 
         boolean loop = true;
 
         while (loop) {
 
-            // Main.clearScreen();
+            Main.clearScreen();
 
             int opcao = 10;
 
@@ -47,6 +51,7 @@ public class MenuFarmaceutico {
                     break;
                 case 2:
                     System.out.println("Adicionar categoria");
+                    adicionarCategoria();
                     break;
                 case 3:
                     System.out.println("Adicionar componente ativo");
@@ -54,9 +59,11 @@ public class MenuFarmaceutico {
                     break;
                 case 4:
                     System.out.println("Adicionar excipiente");
+                    addExcipiente();
                     break;
                 case 5:
                     System.out.println("Ver serviços");
+                    verServicos();
                     break;
                 case 6:
                     System.out.println("Ver dados pessoais");
@@ -81,8 +88,66 @@ public class MenuFarmaceutico {
         }
 
     }
+
+    private static void verServicos() {
+
+        Main.clearScreen();
+        
+        System.out.println("Lista de serviços\n");
+
+        for (Encomenda encomenda : encomendas) {
+            if (encomenda.getFarmaceutico().equals(user)) {
+                System.out.println(encomenda);
+            }
+        }
+
+    }
+    
+    private static void addExcipiente() {
+
+        Main.clearScreen();
+        
+        System.out.println("Designação");
+        String designacao = scanner2.nextLine();
+
+        System.out.println("Codigo");
+        String codigo = scanner2.nextLine();
+
+        System.out.println("Quantidade");
+        int quantidade = scanner2.nextInt();
+
+        Excipiente excipiente = new Excipiente(designacao, codigo, quantidade);
+        excipientes.add(excipiente);
+    }
+
+    private static void adicionarCategoria() {
+
+        Main.clearScreen();
+        
+        System.out.println("Designação");
+        String designacao = scanner2.nextLine();
+
+        System.out.println("Código Infarmed");
+        String codInfarmed = scanner2.nextLine();
+
+        System.out.println("Código");
+        int codigo = scanner2.nextInt();
+        scanner2.nextLine();
+
+        System.out.println("Fornecedor");
+        String fornecedor = scanner2.nextLine();
+
+        if (Categoria.verificaUnicidade(codigo)){
+            Categoria categoria = new Categoria(designacao, codInfarmed, codigo, fornecedor);
+            System.out.println("Categoria adicionada com sucesso");
+        } else {
+            System.out.println("Código já existente");
+        }
+    }
     
     private static void addComponente() {
+
+        Main.clearScreen();
         
         System.out.println("Designação");
         String designacao = scanner2.nextLine();
@@ -98,6 +163,8 @@ public class MenuFarmaceutico {
     }
 
     private static void adicionarMedicamento() {
+        
+        Main.clearScreen();
 
         System.out.println("Designação");
         String designacao = scanner2.nextLine();
@@ -175,6 +242,8 @@ public class MenuFarmaceutico {
     }
     
     private static void editarDadosPessoais() {
+
+        Main.clearScreen();
 
         System.out.println("O que pretende alterar?");
         System.out.println("1 - Nome");

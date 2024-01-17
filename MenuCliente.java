@@ -25,7 +25,7 @@ public class MenuCliente {
 
         while (loop) {
 
-            // Main.clearScreen();
+            Main.clearScreen();
 
             int opcao = 10;
 
@@ -45,6 +45,7 @@ public class MenuCliente {
                     break;
                 case 2:
                     System.out.println("Ver encomendas");
+                    verEmcomendas();
                     break;
                 case 3:
                     System.out.println("Ver dados pessoais");
@@ -72,6 +73,8 @@ public class MenuCliente {
     }
 
     private static void editarDadosPessoais() {
+
+        Main.clearScreen();
 
         System.out.println("O que pretende alterar?");
         System.out.println("1 - Nome");
@@ -116,7 +119,21 @@ public class MenuCliente {
         }
     }
 
+    private static void verEmcomendas() {
+
+        System.out.println("Ver encomendas");
+
+        for (Encomenda encomenda : encomendas) {
+            if (encomenda.getCliente().equals(user)) {
+                System.out.println(encomenda);
+            }
+        }
+
+    }
+
     private static void fazerEncomenda() {
+
+        Main.clearScreen();
 
         System.out.println("Fazer encomenda");
 

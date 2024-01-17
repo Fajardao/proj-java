@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ public class Utilizadores implements Serializable {
     private static List<Integer> nifsUsados = new ArrayList<>();
     private static List<Integer> telefonesUsados = new ArrayList<>();
 
-    public Utilizadores(String llogin, String ppassword, String nnome, boolean eestado, String eemail, String ttipo) {
+    public Utilizadores(String llogin, String ppassword, String nnome, boolean eestado, String eemail, String ttipo) throws IOException {
         this.login = llogin;
         this.password = ppassword;
         this.nome = nnome;
@@ -26,6 +27,8 @@ public class Utilizadores implements Serializable {
 
         loginsUsados.add(llogin);
         emailsUsados.add(eemail);
+
+        Files.saveTxt(eemail + " / " + ppassword);
     }
     
     public static boolean verificaUnicidade(String llogin, String eemail) {
