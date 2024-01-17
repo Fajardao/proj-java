@@ -16,7 +16,7 @@ public class Medicamento {
     private boolean generico;
     private List<Categoria> categorias; //categorias é uma lista de objetos da classe Categoria
     private List<Excipiente> excipientes; //excipientes é uma lista de objetos da classe Excipiente
-
+    
 
     public Medicamento(String ddesignacao, String mmarca, String llaboratorio, String llote, Componente ccomponenteActivo, String ddosagem, int qquantidadeStock, double pprecoVenda, int aanoFabrico, boolean aautorizacaoMedica, boolean ggenerico) {
         this.designacao = ddesignacao;
@@ -60,5 +60,11 @@ public class Medicamento {
     public String getDesignacao() {
         return designacao;
     }
+
+    public void setStock(int novoStock){
+        this.quantidadeStock=novoStock;
+    }
+
+
 
 }
