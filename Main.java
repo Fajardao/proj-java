@@ -68,6 +68,12 @@ public class Main {
                     System.out.println("Menu gestor");
                     MenuGestor.menuGestor(users, users.get(0), farmaceuticos, clientes);
                     break;
+
+                case 5:
+
+                    System.out.println("Menu cliente");
+                    MenuCliente.menuCliente(clientes.get(0));
+                    break;
                 default:
                     System.out.println("Opção inválida");
                     break;
@@ -174,6 +180,7 @@ public class Main {
         if (firstRun == 1) {
             Utilizadores user = new Utilizadores(username, password, nome, true, email, "gestor");
             users.add(user);
+            firstRun = 0;
         } else {
 
             System.out.println("NIF: ");
@@ -201,6 +208,7 @@ public class Main {
         clearScreen();
 
         System.out.println("Bem-vindo " + user.getNome() + "\n");
+        System.out.println(user.getTipo());
 
     }
 

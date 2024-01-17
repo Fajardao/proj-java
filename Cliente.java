@@ -51,8 +51,13 @@ public class Cliente extends Utilizadores {
         return telefone;
     }
     
+    public void setMorada(String mmorada) {
+        this.morada = mmorada;
+    }
     
-    
+    public String toString() {
+        return super.toString() + "\nNIF: " + nif + "\nMorada: " + morada + "\nTelefone: " + telefone;
+    }
 
 
 }

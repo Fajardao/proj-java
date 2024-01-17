@@ -53,8 +53,32 @@ public class Utilizadores implements Serializable {
         return nome;
     }
 
+    public String getTipo() {
+        return tipo;
+    }
+
     public void setAtivo() {
         this.estado = true;
+    }
+
+    public void setNome(String nnome) {
+        this.nome = nnome;
+    }
+
+    public void setPassword(String ppassword) {
+        this.password = ppassword;
+    }
+
+    public String toString() {
+        String string = "Nome: " + nome + "\nEmail: " + email + "\nLogin: " + login + "\nPassword: " + password + "\nTipo: " + tipo + "\nEstado: ";
+        
+                if (estado) {
+                    string += "Ativo";
+                } else {
+                    string += "Inativo";
+                }
+
+        return string;
     }
 
 

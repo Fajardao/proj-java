@@ -4,19 +4,26 @@ public class MenuCliente {
 
     private static Scanner scanner2 = new Scanner(System.in);
 
-    public static void menuCliente(Utilizadores atualUser) {
+    private static Cliente user;
+
+    public static void menuCliente(Cliente atualUser) {
 
         boolean loop = true;
 
+        user = atualUser;
+
         while (loop) {
 
-            Main.clearScreen();
+            //Main.clearScreen();
 
             int opcao = 10;
 
             System.out.println("Bem vindo " + atualUser.getNome());
 
             System.out.println("1 - Fazer encomenda");
+            System.out.println("2 - Ver encomendas");
+            System.out.println("3 - Ver dados pessoais");
+            System.out.println("4 - Alterar dados pessoais");
             System.out.println("0 - Logout");
 
             opcao = scanner2.nextInt();
@@ -25,7 +32,17 @@ public class MenuCliente {
                 case 1:
                     fazerEncomenda();
                     break;
-
+                case 2:
+                    System.out.println("Ver encomendas");
+                    break;
+                case 3:
+                    System.out.println("Ver dados pessoais");
+                    System.out.println(atualUser);
+                    break;
+                case 4:
+                    System.out.println("Alterar dados pessoais");
+                    editarDadosPessoais();
+                    break;
                 case 0:
                     System.out.println("Logout");
                     loop = false;
@@ -43,43 +60,74 @@ public class MenuCliente {
 
     }
 
-    private static void fazerEncomenda() {
-/*
-        int i = 1;
+    private static void editarDadosPessoais() {
 
-        System.out.println("\nLista de produtos");
-        System.out.println("Selecione o produto que pretende encomendar\n");
-
-        for (Produto produto : Main.produtos) {
-            System.out.println(i + " - " + produto.getNome());
-            i++;
-        }
+        System.out.println("O que pretende alterar?");
+        System.out.println("1 - Nome");
+        System.out.println("2 - Password");
+        System.out.println("3 - Morada");
+        System.out.println("0 - Voltar");
 
         int opcao = scanner2.nextInt();
+        scanner2.nextLine();
 
-        System.out.println("Quantidade: ");
-        int quantidade = scanner2.nextInt();
+        switch (opcao) {
+            case 1:
+                System.out.println("Nome");
 
-        System.out.println("Morada: ");
-        String morada = scanner2.nextLine();
+                String novoNome = scanner2.nextLine();
+                user.setNome(novoNome);
+                break;
+            case 2:
+                System.out.println("Password");
+                String novaPassword = scanner2.nextLine();
+                System.out.println("Confirme a password");
+                String confirmacaoPassword = scanner2.nextLine();
 
-        System.out.println("Telefone: ");
-        int telefone = scanner2.nextInt();
+                if (novaPassword.equals(confirmacaoPassword)) {
+                    user.setPassword(novaPassword);
+                    System.out.println("Password alterada com sucesso");
+                } else {
+                    System.out.println("As passwords não coincidem");
+                }
+                break;
+            case 3:
+                System.out.println("Morada");
+                String novaMorada = scanner2.nextLine();
+                user.setMorada(novaMorada);
+                break;
+            case 0:
+                System.out.println("Voltar");
+                break;
+            default:
+                System.out.println("Opção inválida");
+                break;
+        }
+    }
 
-        System.out.println("Data de entrega: ");
-        String dataEntrega = scanner2.nextLine();
+    private static void fazerEncomenda() {
 
-        System.out.println("Hora de entrega: ");
-        String horaEntrega = scanner2.nextLine();
+        System.out.println("Fazer encomenda");
 
-        System.out.println("Observações: ");
-        String observacoes = scanner2.nextLine();
+        System.out.println("1 - Medicamentos");
+        System.out.println("2 - Substancia ativa");
 
-        System.out.println("Encomenda efetuada com sucesso");
+        int opcao = scanner2.nextInt();
+        scanner2.nextLine();
 
-        Encomenda encomenda = new Encomenda(Main.produtos.get(opcao - 1), quantidade, morada, telefone, dataEntrega, horaEntrega, observacoes);
-
-        Main.encomendas.add(encomenda);*/
+        switch (opcao) {
+            case 1:
+                System.out.println("Medicamentos");
+                break;
+            case 2:
+                System.out.println("Substancia ativa");
+                break;
+            default:
+                System.out.println("Opção inválida");
+                break;
+        }
 
     }
+    
+
 }
