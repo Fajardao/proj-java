@@ -1,21 +1,31 @@
 import java.util.Scanner;
 import java.util.List;
+import java.util.ArrayList;
 
 public class MenuCliente {
 
     private static Scanner scanner2 = new Scanner(System.in);
 
+    private static List<Medicamento> medicamentos = new ArrayList<>();
+    private static List<Componente> componentes = new ArrayList<>();
+    private static List<Encomenda> encomendas = new ArrayList<>();
+
     private static Cliente user;
 
-    public static void menuCliente(Cliente atualUser) {
+    public static void menuCliente(Cliente atualUser, List<Medicamento> medicamentos, List<Componente> componentes,
+            List<Encomenda> encomendas) {
 
         boolean loop = true;
+
+        MenuCliente.medicamentos = medicamentos;
+        MenuCliente.componentes = componentes;
+        MenuCliente.encomendas = encomendas;
 
         user = atualUser;
 
         while (loop) {
 
-            //Main.clearScreen();
+            // Main.clearScreen();
 
             int opcao = 10;
 
@@ -119,15 +129,11 @@ public class MenuCliente {
 
         boolean found = false;
 
-        List<Encomenda> encomendas = Main.getEncomendas();
-        
         switch (opcao) {
             case 1:
 
                 System.out.println("\n\n Insira o nome do medicamento");
                 String nomeMedicamento = scanner2.nextLine();
-
-                List<Medicamento> medicamentos = Main.getMedicamentos();
 
                 for (Medicamento medicamento : medicamentos) {
                     if (medicamento.getDesignacao().equals(nomeMedicamento)) {
@@ -146,8 +152,6 @@ public class MenuCliente {
             case 2:
                 System.out.println("\n\n Insira o nome da substancia ativa");
                 String nomeSubstancia = scanner2.nextLine();
-
-                List<Componente> componentes = Main.getComponentes();
 
                 for (Componente componente : componentes) {
                     if (componente.getDesignacao().equals(nomeSubstancia)) {
@@ -169,6 +173,5 @@ public class MenuCliente {
         }
 
     }
-    
 
 }

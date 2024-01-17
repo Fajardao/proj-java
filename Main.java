@@ -28,9 +28,16 @@ public class Main {
 
         load();
 
+        for (Encomenda localEncomenda : encomendas) {
+            System.out.println(localEncomenda.getConfirmado());
+            
+        }
+
         while (loop == true) {
 
             //clearScreen();
+
+            user = null;
 
             System.out.println("XOXOXOXOXOXOXOXOXOXOXOXOX");
             System.out.println("O                       O");
@@ -67,15 +74,15 @@ public class Main {
 
                 case 4:
 
-
                     System.out.println("Menu gestor");
-                    MenuGestor.menuGestor(users.get(0));
+                    MenuGestor.menuGestor(users.get(0), users, farmaceuticos, clientes, medicamentos, componentes,
+                            encomendas);
                     break;
 
                 case 5:
 
                     System.out.println("Menu cliente");
-                    MenuCliente.menuCliente(clientes.get(0));
+                    MenuCliente.menuCliente(clientes.get(0), medicamentos, componentes, encomendas);
                     break;
                 case 6:
                     System.out.println("-----DUMP-----");
@@ -105,7 +112,7 @@ public class Main {
             }
         }
     }
-
+    
     public static void login() {
 
         //clearScreen();
@@ -145,6 +152,7 @@ public class Main {
 
         if (user != null) {
             System.out.println("Utilizador encontrado");
+            System.out.println(password);
             if (user.verificaPassword(password)) {
                 System.out.println("Password correta");
                 if (user.getAtivo()) {
@@ -193,33 +201,46 @@ public class Main {
 
         if (password.equals(passwordConfirm)) {
             System.out.println("Passwords iguais");
+
+            if (firstRun == 1) {
+                Utilizadores user = new Utilizadores(username, password, nome, true, email, "gestor");
+                users.add(user);
+                firstRun = 0;
+            } else {
+    
+                System.out.println("NIF: ");
+                int nif = scanner.nextInt();
+                scanner.nextLine();
+    
+                System.out.println("Morada: ");
+                String morada = scanner.nextLine();
+    
+                System.out.println("Telefone: ");
+                int telefone = scanner.nextInt();
+                scanner.nextLine();
+                
+                if (Utilizadores.verificaUnicidade(username, email)) {
+                    if (Utilizadores.verifyNifTel(nif, telefone)) {
+                        Cliente cliente = new Cliente(username, password, nome, false, email, "user", nif, morada,
+                        telefone);
+                clientes.add(cliente);
+                System.out.println("Utilizador registado com sucesso\n");
+                    } else {
+                        System.out.println("NIF ou telefone inválidos");
+                    }
+                    
+                }
+                else {
+                    System.out.println("Login ou email já existente");
+                }
+            }
         } else {
             System.out.println("Passwords diferentes");
         }
 
-        if (firstRun == 1) {
-            Utilizadores user = new Utilizadores(username, password, nome, true, email, "gestor");
-            users.add(user);
-            firstRun = 0;
-        } else {
-
-            System.out.println("NIF: ");
-            int nif = scanner.nextInt();
-            scanner.nextLine();
-
-            System.out.println("Morada: ");
-            String morada = scanner.nextLine();
-
-            System.out.println("Telefone: ");
-            int telefone = scanner.nextInt();
-            scanner.nextLine();
-
-            Cliente cliente = new Cliente(username, password, nome, false, email, "user", nif, morada, telefone);
-            clientes.add(cliente);
-        }
+        
 
         
-        System.out.println("Utilizador registado com sucesso\n");
 
     }
 
@@ -227,8 +248,15 @@ public class Main {
 
         clearScreen();
 
-        System.out.println("Bem-vindo " + user.getNome() + "\n");
-        System.out.println(user.getTipo());
+        if (user.getTipo().equals("gestor")) {
+            MenuGestor.menuGestor(user, users, farmaceuticos, clientes, medicamentos, componentes, encomendas);
+        } else if (user.getTipo().equals("user")) {
+            MenuCliente.menuCliente((Cliente) user, medicamentos, componentes, encomendas);
+        } else if (user.getTipo().equals("farmaceutico")) {
+            MenuFarmaceutico.menuFarmaceutico((Farmaceutico) user, medicamentos, componentes, encomendas);
+        } else {
+            System.out.println("Tipo de utilizador inválido");
+        }
 
     }
 
@@ -249,7 +277,7 @@ public class Main {
         try {
             FileOutputStream fileOut = new FileOutputStream("dados_apl.dat");
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            Files data = new Files(users, farmaceuticos, clientes);
+            Files data = new Files(users, farmaceuticos, clientes, medicamentos, componentes, encomendas);
             out.writeObject(data);
   
             out.close();
@@ -270,6 +298,9 @@ public class Main {
                 users = data.getUsers();
                 farmaceuticos = data.getFarmaceuticos();
                 clientes = data.getClientes();
+                medicamentos = data.getMedicamentos();
+                componentes = data.getComponentes();
+                encomendas = data.getEncomendas();
                 // Carregue outros dados do objeto data aqui
             } else {
                 System.out.println("Data is not of type Data");
@@ -286,38 +317,7 @@ public class Main {
         }
     }
 
-    public static List<Utilizadores> getUsers() {
-        return users;
-    }
-
-    public static List<Farmaceutico> getFarmaceuticos() {
-        return farmaceuticos;
-    }
-
-    public static List<Cliente> getClientes() {
-        return clientes;
-    }
-
-    public static List<Medicamento> getMedicamentos() {
-        return medicamentos;
-    }
-
-    public static List<Componente> getComponentes() {
-        return componentes;
-    }
-
-    public static List<Encomenda> getEncomendas() {
-        return encomendas;
-    }
-
-    public static void setUsers(List<Utilizadores> users) {
-        Main.users = users;
-    }
-
-    public static void addFarmaceutico(Farmaceutico ffarmaceutico) {
-        farmaceuticos.add(ffarmaceutico);
-    }
-
+    
     public static void clearScreen() {
         try {
             if (System.getProperty("os.name").contains("Windows")) {

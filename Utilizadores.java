@@ -1,6 +1,6 @@
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
+import java.util.ArrayList;
 
 public class Utilizadores implements Serializable {
 
@@ -10,12 +10,11 @@ public class Utilizadores implements Serializable {
     private boolean estado;
     private String email;
     private String tipo;
-    private static Set <String> loginsUsados=new HashSet();//******************************************************************************* */
-    private static Set <String> emailsUsados=new HashSet();
+    private static List <String> loginsUsados=new ArrayList<>();
+    private static List<String> emailsUsados = new ArrayList<>();
 
-
-
-
+    private static List<Integer> nifsUsados = new ArrayList<>();
+    private static List<Integer> telefonesUsados = new ArrayList<>();
 
     public Utilizadores(String llogin, String ppassword, String nnome, boolean eestado, String eemail, String ttipo) {
         this.login = llogin;
@@ -24,13 +23,21 @@ public class Utilizadores implements Serializable {
         this.estado = eestado;
         this.email = eemail;
         this.tipo = ttipo;
+
+        loginsUsados.add(llogin);
+        emailsUsados.add(eemail);
+    }
+    
+    public static boolean verificaUnicidade(String llogin, String eemail) {
+        boolean loginUnico= !loginsUsados.contains(llogin);
+        boolean emailUnico = !emailsUsados.contains(eemail);
         
-        if (loginsUsados.contains(login)|| emailsUsados.contains(email)){
-            System.out.println("O email ou user já estão a ser usados");
-        } else{
-            loginsUsados.add(login);
-            emailsUsados.add(email);
+        if (loginUnico && emailUnico) {
+            return true;
+        } else {
+            return false;
         }
+
     }
 
     public String getEmail() {
@@ -69,6 +76,23 @@ public class Utilizadores implements Serializable {
         this.password = ppassword;
     }
 
+    public void addNifTel(int nnif, int ttelefone) {
+        nifsUsados.add(nnif);
+        telefonesUsados.add(ttelefone);
+    }
+
+    public static boolean verifyNifTel(int nnif, int ttelefone) {
+        boolean nifUnico= !nifsUsados.contains(nnif);
+        boolean telefoneUnico = !telefonesUsados.contains(ttelefone);
+        
+        if (nifUnico && telefoneUnico) {
+            return true;
+        } else {
+            return false;
+        }
+
+    }
+
     public String toString() {
         String string = "Nome: " + nome + "\nEmail: " + email + "\nLogin: " + login + "\nPassword: " + password + "\nTipo: " + tipo + "\nEstado: ";
         
@@ -80,20 +104,5 @@ public class Utilizadores implements Serializable {
 
         return string;
     }
-
-
-
-    //R4
-    //Criação de um metodo para verificar se o login do usuario
-    //que quer fazer alterações nas informações é igual ao login
-    //que foi passado como parametro, visto que cada utilizador
-    //apenas pode alterar a sua propria informaçao
-
-
-    public boolean podeAlterarInformacao(String loginAtual){
-        return this.login.equals(loginAtual);
-    }
-
-    //R5. O login e email devem ser unicos 
 
 }

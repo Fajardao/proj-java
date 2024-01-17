@@ -1,4 +1,6 @@
-public class Categoria {
+import java.io.Serializable;
+
+public class Categoria implements Serializable{
     private String designacao;
     private String classificacaoInfarmed;
     private int codigo; // precisa ser unico
