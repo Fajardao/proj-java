@@ -59,6 +59,13 @@ public class Main {
                     save();
                     loop = false;
                     break;
+
+                case 4:
+
+
+                    System.out.println("Menu gestor");
+                    MenuGestor.menuGestor(users, users.get(0));
+                    break;
                 default:
                     System.out.println("Opção inválida");
                     break;
@@ -166,7 +173,7 @@ public class Main {
     }
 
     public static void encerrarPrograma(){
-       
+    
         clearScreen();
         
         if(user!=null){

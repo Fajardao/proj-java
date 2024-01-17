@@ -53,6 +53,10 @@ public class Utilizadores implements Serializable {
         return nome;
     }
 
+    public void setAtivo() {
+        this.estado = true;
+    }
+
 
 
     //R4
