@@ -10,4 +10,8 @@ public class Componente {
         this.quantidade = qquantidade;
     }
 
+    public String getDesignacao() {
+        return designacao;
+    }
+
 }

@@ -4,11 +4,19 @@ public class Encomenda {
     private Componente componente;
     private Cliente cliente;
     private Farmaceutico farmaceutico;
+    private boolean confirmado;
+    private float total;
+    private int data;
+    private int conclusao;
 
-    public Encomenda(Medicamento mmedicamento, Componente ccomponente, Cliente ccliente) {
-        this.medicamento = mmedicamento;
-        this.componente = ccomponente;
+    public Encomenda(Object info, Cliente ccliente, int tipo) {
+        if (tipo == 1) {
+            this.medicamento = (Medicamento) info;
+        } else if (tipo == 2) {
+            this.componente = (Componente) info;
+        }
         this.cliente = ccliente;
+        this.confirmado = false;
     }
 
     public void setFarmaceutico(Farmaceutico ffarmaceutico) {
@@ -17,6 +25,14 @@ public class Encomenda {
 
     public Farmaceutico getFarmaceutico() {
         return farmaceutico;
+    }
+
+    public void confirmarEncomenda() {
+        this.confirmado = true;
+    }
+
+    public boolean getConfirmado() {
+        return confirmado;
     }
 
 }

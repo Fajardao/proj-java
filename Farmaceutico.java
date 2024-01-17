@@ -27,4 +27,8 @@ public class Farmaceutico extends Utilizadores {
         return telefone;
     }
 
+    public void setMorada(String mmorada) {
+        this.morada = mmorada;
+    }
+
 }

@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.util.List;
 
 public class MenuCliente {
 
@@ -111,16 +112,56 @@ public class MenuCliente {
 
         System.out.println("1 - Medicamentos");
         System.out.println("2 - Substancia ativa");
+        System.out.println("0 - Voltar");
 
         int opcao = scanner2.nextInt();
         scanner2.nextLine();
 
+        boolean found = false;
+
+        List<Encomenda> encomendas = Main.getEncomendas();
+        
         switch (opcao) {
             case 1:
-                System.out.println("Medicamentos");
+
+                System.out.println("\n\n Insira o nome do medicamento");
+                String nomeMedicamento = scanner2.nextLine();
+
+                List<Medicamento> medicamentos = Main.getMedicamentos();
+
+                for (Medicamento medicamento : medicamentos) {
+                    if (medicamento.getDesignacao().equals(nomeMedicamento)) {
+                        Encomenda encomenda = new Encomenda(medicamento, user, 1);
+                        encomendas.add(encomenda);
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (!found) {
+                    System.out.println("Não foi encontrado nenhum medicamento com esse nome");
+                }
+
                 break;
             case 2:
-                System.out.println("Substancia ativa");
+                System.out.println("\n\n Insira o nome da substancia ativa");
+                String nomeSubstancia = scanner2.nextLine();
+
+                List<Componente> componentes = Main.getComponentes();
+
+                for (Componente componente : componentes) {
+                    if (componente.getDesignacao().equals(nomeSubstancia)) {
+                        Encomenda encomenda = new Encomenda(componente, user, 2);
+                        encomendas.add(encomenda);
+                        found = true;
+                        break;
+                    }
+                }
+
+                if (!found) {
+                    System.out.println("Não foi encontrado nenhum medicamento com essa substancia ativa");
+                }
+
                 break;
             default:
                 System.out.println("Opção inválida");

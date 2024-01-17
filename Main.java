@@ -13,6 +13,9 @@ public class Main {
                                                                  //estado falso
     private static List<Farmaceutico> farmaceuticos = new ArrayList<>();
     private static List<Cliente> clientes = new ArrayList<>();
+    private static List<Medicamento> medicamentos = new ArrayList<>();
+    private static List<Componente> componentes = new ArrayList<>();
+    private static List<Encomenda> encomendas = new ArrayList<>();
     private static Scanner scanner = new Scanner(System.in);
     private static int erro = 0;
     private static int firstRun = 0;
@@ -66,7 +69,7 @@ public class Main {
 
 
                     System.out.println("Menu gestor");
-                    MenuGestor.menuGestor(users, users.get(0), farmaceuticos, clientes);
+                    MenuGestor.menuGestor(users.get(0));
                     break;
 
                 case 5:
@@ -74,6 +77,23 @@ public class Main {
                     System.out.println("Menu cliente");
                     MenuCliente.menuCliente(clientes.get(0));
                     break;
+                case 6:
+                    System.out.println("-----DUMP-----");
+
+                    System.out.println("\nUtilizadores:");
+                    for (Utilizadores localUser : users) {
+                        System.out.println(localUser.getNome());
+                    }
+
+                    System.out.println("\nFarmaceuticos:");
+                    for (Farmaceutico localFarmaceutico : farmaceuticos) {
+                        System.out.println(localFarmaceutico.getNome());
+                    }
+
+                    System.out.println("\nClientes:");
+                    for (Cliente localCliente : clientes) {
+                        System.out.println(localCliente.getNome());
+                    }
                 default:
                     System.out.println("Opção inválida");
                     break;
@@ -264,6 +284,38 @@ public class Main {
             System.out.println("Class not found");
             c.printStackTrace();
         }
+    }
+
+    public static List<Utilizadores> getUsers() {
+        return users;
+    }
+
+    public static List<Farmaceutico> getFarmaceuticos() {
+        return farmaceuticos;
+    }
+
+    public static List<Cliente> getClientes() {
+        return clientes;
+    }
+
+    public static List<Medicamento> getMedicamentos() {
+        return medicamentos;
+    }
+
+    public static List<Componente> getComponentes() {
+        return componentes;
+    }
+
+    public static List<Encomenda> getEncomendas() {
+        return encomendas;
+    }
+
+    public static void setUsers(List<Utilizadores> users) {
+        Main.users = users;
+    }
+
+    public static void addFarmaceutico(Farmaceutico ffarmaceutico) {
+        farmaceuticos.add(ffarmaceutico);
     }
 
     public static void clearScreen() {

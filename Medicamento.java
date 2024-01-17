@@ -53,8 +53,12 @@ public class Medicamento {
         }
     }
 
-    public List<Excipiente> getExcipientes(){
+    public List<Excipiente> getExcipientes() {
         return excipientes;
+    }
+    
+    public String getDesignacao() {
+        return designacao;
     }
 
 }

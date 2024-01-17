@@ -12,12 +12,11 @@ public class MenuGestor {
 
     private static Scanner scanner2 = new Scanner(System.in);
 
-    public static void menuGestor(List<Utilizadores> listUsers, Utilizadores atualUser,
-            List<Farmaceutico> listFarmaceuticos, List<Cliente> listClientes) {
+    public static void menuGestor(Utilizadores atualUser) {
 
-        users = listUsers;
-        farmaceuticos = listFarmaceuticos;
-        clientes = listClientes;
+        users = Main.getUsers();
+        farmaceuticos = Main.getFarmaceuticos();
+        clientes = Main.getClientes();
 
         user = atualUser;
 
@@ -32,6 +31,7 @@ public class MenuGestor {
             System.out.println("Bem vindo " + atualUser.getNome());
 
             System.out.println("1 - Validar utilizadores");
+            System.out.println("2 - Confirmar encomendas");
             System.out.println("3 - Ver dados pessoais");
             System.out.println("4 - Alterar dados pessoais");
             System.out.println("5 - Adicionar gestor");
@@ -44,6 +44,10 @@ public class MenuGestor {
             switch (opcao) {
                 case 1:
                     validarUsers();
+                    break;
+                case 2:
+                    System.out.println("Confirmar encomendas");
+                    confirmarEncomendas();
                     break;
                 case 3:
                     System.out.println("Ver dados pessoais");
@@ -75,6 +79,82 @@ public class MenuGestor {
 
     }
 
+    private static void confirmarEncomendas() {
+
+        int i = 1;
+
+        List<Encomenda> encomendas = Main.getEncomendas();
+
+        System.out.println("\nLista de encomendas por confirmar");
+        System.out.println("Selecione a encomenda que pretende confirmar\n");
+
+        for (Encomenda encomenda : Main.getEncomendas()) {
+            if (encomenda.getConfirmado() == false) {
+                System.out.println(i++ + " - " + encomenda);
+                encomendas.add(encomenda);
+            }
+        }
+        System.out.println("0 - Voltar\n");
+
+        int escolhido = scanner2.nextInt();
+
+        if (escolhido < 0 || escolhido > encomendas.size()) {
+            System.out.println("Opção inválida");
+            return;
+        } else {
+            if (escolhido == 0) {
+                return;
+            } else {
+                for (Encomenda encomenda : Main.getEncomendas()) {
+
+                    if (encomenda.equals(encomendas.get(escolhido - 1))) {
+                        System.out.println("Insrira o nome do farmacêutico");
+                        String nomeFarmaceutico = scanner2.nextLine();
+                        encomenda.setFarmaceutico(selectFarmaceutico());
+                        encomenda.confirmarEncomenda();
+                        System.out.println("Encomenda confirmada com sucesso");
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    private static Farmaceutico selectFarmaceutico() {
+
+        int i = 1;
+
+        List<Farmaceutico> farmaceuticos = Main.getFarmaceuticos();
+
+        System.out.println("\nLista de farmacêuticos");
+        System.out.println("Selecione o farmacêutico que pretende\n");
+
+        for (Farmaceutico farmaceutico : Main.getFarmaceuticos()) {
+            System.out.println(i++ + " - " + farmaceutico);
+            farmaceuticos.add(farmaceutico);
+        }
+        System.out.println("0 - Voltar\n");
+
+        int escolhido = scanner2.nextInt();
+
+        if (escolhido < 0 || escolhido > farmaceuticos.size()) {
+            System.out.println("Opção inválida");
+            return null;
+        } else {
+            if (escolhido == 0) {
+                return null;
+            } else {
+                for (Farmaceutico farmaceutico : Main.getFarmaceuticos()) {
+
+                    if (farmaceutico.equals(farmaceuticos.get(escolhido - 1))) {
+                        return farmaceutico;
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
     private static void editarDadosPessoais() {
 
         System.out.println("O que pretende alterar?");
@@ -102,8 +182,7 @@ public class MenuGestor {
                 if (!novaPassword.equals(confirmacao)) {
                     System.out.println("As passwords não coincidem");
                     break;
-                }
-                else{
+                } else {
                     System.out.println("Password alterada com sucesso");
                     user.setPassword(novaPassword);
                 }
@@ -172,6 +251,8 @@ public class MenuGestor {
 
         users.add(novoGestor);
 
+        Main.setUsers(users);
+
     }
 
     private static void adicionarFarmaceutico() {
@@ -190,17 +271,21 @@ public class MenuGestor {
 
         System.out.println("NIF: ");
         int nif = scanner2.nextInt();
+        scanner2.nextLine();
 
         System.out.println("Morada: ");
         String morada = scanner2.nextLine();
 
         System.out.println("Telefone: ");
         int telefone = scanner2.nextInt();
+        scanner2.nextLine();
 
-        Farmaceutico novoFarmaceutico = new Farmaceutico(login, password, nome, true, email, "farmaceutico", nif,
-                morada, telefone);
+        Farmaceutico novoFarmaceutico = new Farmaceutico(login, password, nome, true, email, "farmaceutico", nif, morada, telefone);
 
         farmaceuticos.add(novoFarmaceutico);
+
+        Main.addFarmaceutico(novoFarmaceutico);
+
 
     }
 }
