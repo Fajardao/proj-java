@@ -3,15 +3,25 @@ import java.util.List;
 
 public class Files implements Serializable {
     private List<Utilizadores> users;
-    // Adicione outras listas de dados aqui
+    private List<Farmaceutico> farmaceuticos;
+    private List<Cliente> clientes;
 
-    public Files(List<Utilizadores> users) {
-        this.users = users;
+    public Files(List<Utilizadores> uusers, List<Farmaceutico> ffarmaceuticos, List<Cliente> cclientes) {
+        this.users = uusers;
+        this.farmaceuticos = ffarmaceuticos;
+        this.clientes = cclientes;
     }
 
     public List<Utilizadores> getUsers() {
         return users;
     }
 
-    // Adicione outros getters e setters aqui
+    public List<Farmaceutico> getFarmaceuticos() {
+        return farmaceuticos;
+    }
+
+    public List<Cliente> getClientes() {
+        return clientes;
+    }
+
 }

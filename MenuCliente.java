@@ -44,7 +44,7 @@ public class MenuCliente {
     }
 
     private static void fazerEncomenda() {
-
+/*
         int i = 1;
 
         System.out.println("\nLista de produtos");
@@ -79,7 +79,7 @@ public class MenuCliente {
 
         Encomenda encomenda = new Encomenda(Main.produtos.get(opcao - 1), quantidade, morada, telefone, dataEntrega, horaEntrega, observacoes);
 
-        Main.encomendas.add(encomenda);
+        Main.encomendas.add(encomenda);*/
 
     }
 }

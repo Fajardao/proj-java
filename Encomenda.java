@@ -1,6 +1,7 @@
 public class Encomenda {
 
     private Medicamento medicamento;
-    private 
+    private Cliente cliente;
+    private Farmaceutico farmaceutico;
 
 }

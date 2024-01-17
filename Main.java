@@ -10,7 +10,9 @@ import java.io.ObjectOutputStream;
 public class Main {
 
     private static List<Utilizadores> users = new ArrayList<>(); //tipo users 
-                                                                  //estado falso
+                                                                 //estado falso
+    private static List<Farmaceutico> farmaceuticos = new ArrayList<>();
+    private static List<Cliente> clientes = new ArrayList<>();
     private static Scanner scanner = new Scanner(System.in);
     private static int erro = 0;
     private static int firstRun = 0;
@@ -25,7 +27,7 @@ public class Main {
 
         while (loop == true) {
 
-            clearScreen();
+            //clearScreen();
 
             System.out.println("XOXOXOXOXOXOXOXOXOXOXOXOX");
             System.out.println("O                       O");
@@ -64,7 +66,7 @@ public class Main {
 
 
                     System.out.println("Menu gestor");
-                    MenuGestor.menuGestor(users, users.get(0));
+                    MenuGestor.menuGestor(users, users.get(0), farmaceuticos, clientes);
                     break;
                 default:
                     System.out.println("Opção inválida");
@@ -80,7 +82,7 @@ public class Main {
 
     public static void login() {
 
-        clearScreen();
+        //clearScreen();
 
         System.out.println("\nE-mail: ");
         String email = scanner.nextLine();
@@ -92,6 +94,24 @@ public class Main {
             if (localUser.getEmail().equals(email)) {
                 user = localUser;
                 break;
+            }
+        }
+        if (user == null) {
+            for (Farmaceutico localFarmaceutico : farmaceuticos) {
+                if (localFarmaceutico.getEmail().equals(email)) {
+                    user = localFarmaceutico;
+                    System.out.println("1");
+                    break;
+                }
+            }
+        }
+        if (user == null) {
+            for (Cliente localCliente : clientes) {
+                if (localCliente.getEmail().equals(email)) {
+                    user = localCliente;
+                    System.out.println("2");
+                    break;
+                }
             }
         }
 
@@ -122,7 +142,7 @@ public class Main {
 
     public static void registar() {
 
-        clearScreen();
+        //clearScreen();
 
         if (firstRun == 1) {
             System.out.println("Registo de gestor (primeira execução):");
@@ -155,8 +175,20 @@ public class Main {
             Utilizadores user = new Utilizadores(username, password, nome, true, email, "gestor");
             users.add(user);
         } else {
-            Utilizadores user = new Utilizadores(username, password, nome, false, email, "user");
-            users.add(user);
+
+            System.out.println("NIF: ");
+            int nif = scanner.nextInt();
+            scanner.nextLine();
+
+            System.out.println("Morada: ");
+            String morada = scanner.nextLine();
+
+            System.out.println("Telefone: ");
+            int telefone = scanner.nextInt();
+            scanner.nextLine();
+
+            Cliente cliente = new Cliente(username, password, nome, false, email, "user", nif, morada, telefone);
+            clientes.add(cliente);
         }
 
         
@@ -189,9 +221,9 @@ public class Main {
         try {
             FileOutputStream fileOut = new FileOutputStream("dados_apl.dat");
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            Files data = new Files(users);
-            // Adicione outros dados ao objeto data aqui
+            Files data = new Files(users, farmaceuticos, clientes);
             out.writeObject(data);
+  
             out.close();
             fileOut.close();
         } catch (IOException i) {
@@ -208,6 +240,8 @@ public class Main {
             if (obj instanceof Files) {
                 Files data = (Files) obj;
                 users = data.getUsers();
+                farmaceuticos = data.getFarmaceuticos();
+                clientes = data.getClientes();
                 // Carregue outros dados do objeto data aqui
             } else {
                 System.out.println("Data is not of type Data");
