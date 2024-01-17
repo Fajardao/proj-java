@@ -103,7 +103,6 @@ public class MenuGestor{
         for (Encomenda encomenda : encomendas) {
             if (encomenda.getConfirmado() == false) {
                 System.out.println(i++ + " - " + encomenda);
-                encomendas.add(encomenda);
             }
         }
         System.out.println("0 - Voltar\n");
@@ -120,8 +119,7 @@ public class MenuGestor{
                 for (Encomenda encomenda :encomendas) {
 
                     if (encomenda.equals(encomendas.get(escolhido - 1))) {
-                        System.out.println("Insrira o nome do farmacêutico");
-                        String nomeFarmaceutico = scanner2.nextLine();
+                        System.out.println("Insira o nome do farmacêutico");
                         encomenda.setFarmaceutico(selectFarmaceutico());
                         encomenda.confirmarEncomenda();
                         System.out.println("Encomenda confirmada com sucesso");
@@ -141,8 +139,7 @@ public class MenuGestor{
         System.out.println("Selecione o farmacêutico que pretende\n");
 
         for (Farmaceutico farmaceutico : farmaceuticos) {
-            System.out.println(i++ + " - " + farmaceutico);
-            farmaceuticos.add(farmaceutico);
+            System.out.println(i++ + " - " + farmaceutico.getNome());
         }
         System.out.println("0 - Voltar\n");
 

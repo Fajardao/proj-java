@@ -38,7 +38,12 @@ public class Encomenda implements Serializable {
     }
 
     public String toString() {
-        return medicamento.getDesignacao() + " - " + cliente.getNome();
+        if (medicamento != null) {
+            return medicamento.getDesignacao() + " - " + cliente.getNome();
+        } else if (componente != null) {
+            return componente.getDesignacao() + " - " + cliente.getNome();
+        }
+        return "Erro";
     }
 
 }
