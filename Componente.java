@@ -1,4 +1,6 @@
-public class Componente {
+import java.io.Serializable;
+
+public class Componente implements Serializable{
 
     private String designacao;
     private String codigo;

@@ -16,6 +16,7 @@ public class Farmaceutico extends Utilizadores {
         this.nif = nnif;
         this.morada = mmorada;
         this.telefone = ttelefone;
+        super.addNifTel(nnif, ttelefone);
 
     }
 

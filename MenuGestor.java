@@ -2,21 +2,34 @@ import java.util.Scanner;
 import java.util.List;
 import java.util.ArrayList;
 
-public class MenuGestor {
+public class MenuGestor{
 
-    private static List<Utilizadores> users;
-    private static List<Farmaceutico> farmaceuticos;
-    private static List<Cliente> clientes;
+    private static List<Utilizadores> users = new ArrayList<>();
+    private static List<Farmaceutico> farmaceuticos = new ArrayList<>();
+    private static List<Cliente> clientes = new ArrayList<>();
+    private static List<Medicamento> medicamentos = new ArrayList<>();
+    private static List<Componente> componentes = new ArrayList<>();
+    private static List<Encomenda> encomendas = new ArrayList<>();
+
 
     private static Utilizadores user;
 
     private static Scanner scanner2 = new Scanner(System.in);
 
-    public static void menuGestor(Utilizadores atualUser) {
+    public static void menuGestor(Utilizadores atualUser, List<Utilizadores> users, List<Farmaceutico> farmaceuticos, List<Cliente> clientes, List<Medicamento> medicamentos, List<Componente> componentes,  List<Encomenda> encomendas) {
 
-        users = Main.getUsers();
-        farmaceuticos = Main.getFarmaceuticos();
-        clientes = Main.getClientes();
+        MenuGestor.users = users;
+        MenuGestor.farmaceuticos = farmaceuticos;
+        MenuGestor.clientes = clientes;
+        MenuGestor.medicamentos = medicamentos;
+        MenuGestor.componentes = componentes;
+        MenuGestor.encomendas = encomendas;
+
+        System.out.println("Lista de utilizadores");
+        for (Utilizadores utilizador : clientes) {
+            System.out.println(utilizador);
+        }
+        System.out.println("-----------------");
 
         user = atualUser;
 
@@ -83,12 +96,11 @@ public class MenuGestor {
 
         int i = 1;
 
-        List<Encomenda> encomendas = Main.getEncomendas();
 
         System.out.println("\nLista de encomendas por confirmar");
         System.out.println("Selecione a encomenda que pretende confirmar\n");
 
-        for (Encomenda encomenda : Main.getEncomendas()) {
+        for (Encomenda encomenda : encomendas) {
             if (encomenda.getConfirmado() == false) {
                 System.out.println(i++ + " - " + encomenda);
                 encomendas.add(encomenda);
@@ -105,7 +117,7 @@ public class MenuGestor {
             if (escolhido == 0) {
                 return;
             } else {
-                for (Encomenda encomenda : Main.getEncomendas()) {
+                for (Encomenda encomenda :encomendas) {
 
                     if (encomenda.equals(encomendas.get(escolhido - 1))) {
                         System.out.println("Insrira o nome do farmacêutico");
@@ -124,12 +136,11 @@ public class MenuGestor {
 
         int i = 1;
 
-        List<Farmaceutico> farmaceuticos = Main.getFarmaceuticos();
 
         System.out.println("\nLista de farmacêuticos");
         System.out.println("Selecione o farmacêutico que pretende\n");
 
-        for (Farmaceutico farmaceutico : Main.getFarmaceuticos()) {
+        for (Farmaceutico farmaceutico : farmaceuticos) {
             System.out.println(i++ + " - " + farmaceutico);
             farmaceuticos.add(farmaceutico);
         }
@@ -144,7 +155,7 @@ public class MenuGestor {
             if (escolhido == 0) {
                 return null;
             } else {
-                for (Farmaceutico farmaceutico : Main.getFarmaceuticos()) {
+                for (Farmaceutico farmaceutico : farmaceuticos) {
 
                     if (farmaceutico.equals(farmaceuticos.get(escolhido - 1))) {
                         return farmaceutico;
@@ -247,11 +258,16 @@ public class MenuGestor {
         System.out.println("Login: ");
         String login = scanner2.nextLine();
 
-        Utilizadores novoGestor = new Utilizadores(login, password, nome, true, email, "gestor");
+        if (Utilizadores.verificaUnicidade(login, email)) {
+            Utilizadores novoGestor = new Utilizadores(login, password, nome, true, email, "gestor");
 
-        users.add(novoGestor);
+            users.add(novoGestor);
 
-        Main.setUsers(users);
+            System.out.println("Gestor adicionado com sucesso");
+        }
+        else {
+            System.out.println("Login ou email já existente");
+        }
 
     }
 
@@ -280,11 +296,19 @@ public class MenuGestor {
         int telefone = scanner2.nextInt();
         scanner2.nextLine();
 
-        Farmaceutico novoFarmaceutico = new Farmaceutico(login, password, nome, true, email, "farmaceutico", nif, morada, telefone);
-
-        farmaceuticos.add(novoFarmaceutico);
-
-        Main.addFarmaceutico(novoFarmaceutico);
+        if (Utilizadores.verificaUnicidade(login, email)) {
+            if (Utilizadores.verifyNifTel(nif, telefone)) {
+                Farmaceutico novoFarmaceutico = new Farmaceutico(login, password, nome, true, email, "farmaceutico", nif, morada, telefone);
+                farmaceuticos.add(novoFarmaceutico);
+                System.out.println("Farmacêutico adicionado com sucesso");
+            }
+            else {
+                System.out.println("NIF ou telefone já existente");
+            }
+        }
+        else {
+            System.out.println("Login ou email já existente");
+        }
 
 
     }

@@ -1,4 +1,6 @@
-public class Encomenda {
+import java.io.Serializable;
+
+public class Encomenda implements Serializable {
 
     private Medicamento medicamento;
     private Componente componente;
@@ -33,6 +35,10 @@ public class Encomenda {
 
     public boolean getConfirmado() {
         return confirmado;
+    }
+
+    public String toString() {
+        return medicamento.getDesignacao() + " - " + cliente.getNome();
     }
 
 }

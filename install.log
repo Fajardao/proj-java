@@ -1,0 +1,9 @@
+[07:02:26 2024-01-17] FETCHING Version 1.2.1
+[07:02:26 2024-01-17] DOWNLOADING https://github.com/spicetify/spicetify-cli/releases/download/v1.2.1/spicetify-1.2.1-linux-amd64.tar.gz
+[07:02:27 2024-01-17] EXTRACTING /home/fajardo/.spicetify/spicetify.tar.gz
+[07:02:28 2024-01-17] SETTING EXECUTABLE PERMISSIONS TO /home/fajardo/.spicetify/spicetify
+[07:02:28 2024-01-17] REMOVING /home/fajardo/.spicetify/spicetify.tar.gz
+[07:02:28 2024-01-17] spicetify path already set in /home/fajardo/.bashrc, continuing...
+[07:02:28 2024-01-17] spicetify path already set in /home/fajardo/.bash_profile, continuing...
+[07:02:28 2024-01-17] spicetify v1.2.1 was installed successfully to /home/fajardo/.spicetify
+[07:02:28 2024-01-17] Run 'spicetify --help' to get started

@@ -1,7 +1,8 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Medicamento {
+public class Medicamento implements Serializable{
 
     private String designacao;
     private String marca;
