@@ -1,7 +1,9 @@
 import java.io.Serializable;
 
+
 public class Encomenda implements Serializable {
 
+    private int id;
     private Medicamento medicamento;
     private Componente componente;
     private Cliente cliente;
@@ -10,6 +12,7 @@ public class Encomenda implements Serializable {
     private float total;
     private int data;
     private int conclusao;
+    private static int idCount = 1;
 
     public Encomenda(Object info, Cliente ccliente, int tipo) {
         if (tipo == 1) {
@@ -17,8 +20,11 @@ public class Encomenda implements Serializable {
         } else if (tipo == 2) {
             this.componente = (Componente) info;
         }
+        farmaceutico = null;
         this.cliente = ccliente;
         this.confirmado = false;
+        this.id = idCount++;
+
     }
 
     public void setFarmaceutico(Farmaceutico ffarmaceutico) {
@@ -41,11 +47,23 @@ public class Encomenda implements Serializable {
         return cliente;
     }
 
+    public Medicamento getMedicamento() {
+        return medicamento;
+    }
+
+    public Componente getComponente() {
+        return componente;
+    }
+
+    public int getIdCount() {
+        return idCount;
+    }
+
     public String toString() {
         if (medicamento != null) {
-            return medicamento.getDesignacao() + " - " + cliente.getNome();
+            return id + " - " + medicamento.getDesignacao() + " - " + cliente.getNome();
         } else if (componente != null) {
-            return componente.getDesignacao() + " - " + cliente.getNome();
+            return id + " - " + componente.getDesignacao() + " - " + cliente.getNome();
         }
         return "Erro";
     }

@@ -6,9 +6,9 @@ public class Excipiente implements Serializable {
     private int quantidade;
     
     public Excipiente(String ddesignacao, String cclassificacaoInfarmed,int qquantidade){
-        this.designacao=ddesignacao;
-        this.classificacaoInfarmed=cclassificacaoInfarmed;
-        this.quantidade=qquantidade;
+        this.designacao = ddesignacao;
+        this.classificacaoInfarmed = cclassificacaoInfarmed;
+        this.quantidade = qquantidade;
     }
     
 

@@ -3,7 +3,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class MenuFarmaceutico {
-    
+
     private static Farmaceutico user;
     private static Scanner scanner2 = new Scanner(System.in);
 
@@ -13,7 +13,9 @@ public class MenuFarmaceutico {
     private static List<Categoria> categorias = new ArrayList<>();
     private static List<Excipiente> excipientes = new ArrayList<>();
 
-    public static void menuFarmaceutico(Farmaceutico atualUser, List<Medicamento> medicamentos, List<Componente> componentes, List<Encomenda> encomendas, List<Categoria> categorias, List<Excipiente> excipientes) {
+    public static void menuFarmaceutico(Farmaceutico atualUser, List<Medicamento> medicamentos,
+            List<Componente> componentes, List<Encomenda> encomendas, List<Categoria> categorias,
+            List<Excipiente> excipientes) {
 
         user = atualUser;
         MenuFarmaceutico.medicamentos = medicamentos;
@@ -36,7 +38,7 @@ public class MenuFarmaceutico {
             System.out.println("2 - Adicionar categoria");
             System.out.println("3 - Adicionar componente ativo");
             System.out.println("4 - Adicionar excipiente");
-            System.out.println("5 - Ver serviços");
+            System.out.println("5 - Gerir serviços");
             System.out.println("6 - Ver dados pessoais");
             System.out.println("7 - Alterar dados pessoais");
             System.out.println("0 - Logout");
@@ -92,21 +94,37 @@ public class MenuFarmaceutico {
     private static void verServicos() {
 
         Main.clearScreen();
-        
+
         System.out.println("Lista de serviços\n");
+
+        int i = 1;
 
         for (Encomenda encomenda : encomendas) {
             if (encomenda.getFarmaceutico().equals(user)) {
-                System.out.println(encomenda);
+                System.out.println(i + " - " + encomenda);
             }
+        }
+        
+
+        int opcao = scanner2.nextInt();
+
+        if (opcao < 0 || opcao > encomendas.size()) {
+            System.out.println("Opção inválida");
+        } else {
+            Encomenda encomenda = encomendas.get(opcao - 1);
+
+            System.out.println("O que deseja fazer?\n");
+
+            System.out.println("1 - Adicionar farmaceutico");
+
         }
 
     }
-    
+
     private static void addExcipiente() {
 
         Main.clearScreen();
-        
+
         System.out.println("Designação");
         String designacao = scanner2.nextLine();
 
@@ -123,7 +141,7 @@ public class MenuFarmaceutico {
     private static void adicionarCategoria() {
 
         Main.clearScreen();
-        
+
         System.out.println("Designação");
         String designacao = scanner2.nextLine();
 
@@ -137,18 +155,18 @@ public class MenuFarmaceutico {
         System.out.println("Fornecedor");
         String fornecedor = scanner2.nextLine();
 
-        if (Categoria.verificaUnicidade(codigo)){
+        if (Categoria.verificaUnicidade(codigo)) {
             Categoria categoria = new Categoria(designacao, codInfarmed, codigo, fornecedor);
             System.out.println("Categoria adicionada com sucesso");
         } else {
             System.out.println("Código já existente");
         }
     }
-    
+
     private static void addComponente() {
 
         Main.clearScreen();
-        
+
         System.out.println("Designação");
         String designacao = scanner2.nextLine();
 
@@ -163,7 +181,7 @@ public class MenuFarmaceutico {
     }
 
     private static void adicionarMedicamento() {
-        
+
         Main.clearScreen();
 
         System.out.println("Designação");
@@ -203,34 +221,33 @@ public class MenuFarmaceutico {
         System.out.println("Genérico");
         boolean generico = scanner2.nextBoolean();
 
-        Medicamento medicamento = new Medicamento(designacao, marca, laboratorio, lote, componenteActivo, dosagem,quantidadeStock, precoVenda, anoFabrico, autorizacaoMedica, generico);
-
+        Medicamento medicamento = new Medicamento(designacao, marca, laboratorio, lote, componenteActivo, dosagem,
+                quantidadeStock, precoVenda, anoFabrico, autorizacaoMedica, generico);
 
         medicamentos.add(medicamento);
 
     }
-    
+
     private static Componente selectComponente() {
-        
+
         int i = 1;
         boolean loop = true;
-        
-        
+
         while (loop) {
-        System.out.println("\nLista de componentes");
-        System.out.println("Selecione o componente que pretende adicionar\n");
-        
-        for (Componente componente : componentes) {
-            System.out.println(i++ + " - " + componente.getDesignacao());
-        }
-        
-        int escolhido = scanner2.nextInt();
-        
-        if (escolhido < 0 || escolhido > componentes.size()) {
-            System.out.println("Opção inválida");
-        } else {
+            System.out.println("\nLista de componentes");
+            System.out.println("Selecione o componente que pretende adicionar\n");
+
+            for (Componente componente : componentes) {
+                System.out.println(i++ + " - " + componente.getDesignacao());
+            }
+
+            int escolhido = scanner2.nextInt();
+
+            if (escolhido < 0 || escolhido > componentes.size()) {
+                System.out.println("Opção inválida");
+            } else {
                 for (Componente componente : componentes) {
-                    
+
                     if (componente.equals(componentes.get(escolhido - 1))) {
                         return componente;
                     }
@@ -240,7 +257,7 @@ public class MenuFarmaceutico {
         return null;
 
     }
-    
+
     private static void editarDadosPessoais() {
 
         Main.clearScreen();

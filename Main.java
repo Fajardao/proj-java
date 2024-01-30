@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 import java.io.FileOutputStream;
@@ -9,8 +10,8 @@ import java.io.ObjectOutputStream;
 
 public class Main {
 
-    private static List<Utilizadores> users = new ArrayList<>(); //tipo users 
-                                                                 //estado falso
+    private static List<Utilizadores> users = new ArrayList<>(); // tipo users
+                                                                 // estado falso
     private static List<Farmaceutico> farmaceuticos = new ArrayList<>();
     private static List<Cliente> clientes = new ArrayList<>();
     private static List<Medicamento> medicamentos = new ArrayList<>();
@@ -32,7 +33,7 @@ public class Main {
 
         for (Encomenda localEncomenda : encomendas) {
             System.out.println(localEncomenda.getConfirmado());
-            
+
         }
 
         while (loop == true) {
@@ -91,6 +92,44 @@ public class Main {
                     for (Cliente localCliente : clientes) {
                         System.out.println(localCliente.getNome());
                     }
+
+                    System.out.println("\nMedicamentos:");
+                    for (Medicamento localMedicamento : medicamentos) {
+                        System.out.println(localMedicamento.getDesignacao());
+                    }
+
+                    System.out.println("\nComponentes:");
+                    for (Componente localComponente : componentes) {
+                        System.out.println(localComponente.getDesignacao());
+                    }
+
+                    System.out.println("\nEncomendas:");
+                    for (Encomenda localEncomenda : encomendas) {
+                        System.out.println(localEncomenda.getMedicamento().getDesignacao());
+                    }
+
+                    System.out.println("\nCategorias:");
+                    for (Categoria localCategoria : categorias) {
+                        System.out.println(localCategoria);
+                    }
+
+                    System.out.println("\nExcipientes:");
+                    for (Excipiente localExcipiente : excipientes) {
+                        System.out.println(localExcipiente);
+                    }
+
+                    System.out.println("-----DUMP-----");
+                    break;
+                case 404:
+                    File myFile = new File("dados_apl.dat");
+
+                    if (myFile.delete()) {
+                        System.out.println("Arquivo deletado com sucesso");
+                    } else {
+                        System.out.println("Falha ao deletar o arquivo");
+                    }
+
+                    loop = false;
                     break;
                 default:
                     System.out.println("Opção inválida");
@@ -102,8 +141,9 @@ public class Main {
                 scanner.nextLine();
             }
         }
+
     }
-    
+
     public static void login() throws IOException {
 
         clearScreen();
@@ -157,13 +197,12 @@ public class Main {
             }
         } else {
             System.out.println("Utilizador não encontrado");
-        
+
         }
         if (valid == 1) {
             afterLogin();
         }
     }
-
 
     public static void registar() throws IOException {
 
@@ -198,40 +237,35 @@ public class Main {
                 users.add(user);
                 firstRun = 0;
             } else {
-    
+
                 System.out.println("NIF: ");
                 int nif = scanner.nextInt();
                 scanner.nextLine();
-    
+
                 System.out.println("Morada: ");
                 String morada = scanner.nextLine();
-    
+
                 System.out.println("Telefone: ");
                 int telefone = scanner.nextInt();
                 scanner.nextLine();
-                
+
                 if (Utilizadores.verificaUnicidade(username, email)) {
                     if (Utilizadores.verifyNifTel(nif, telefone)) {
                         Cliente cliente = new Cliente(username, password, nome, false, email, "user", nif, morada,
-                        telefone);
-                clientes.add(cliente);
-                System.out.println("Utilizador registado com sucesso\n");
+                                telefone);
+                        clientes.add(cliente);
+                        System.out.println("Utilizador registado com sucesso\n");
                     } else {
                         System.out.println("NIF ou telefone inválidos");
                     }
-                    
-                }
-                else {
+
+                } else {
                     System.out.println("Login ou email já existente");
                 }
             }
         } else {
             System.out.println("Passwords diferentes");
         }
-
-        
-
-        
 
     }
 
@@ -244,20 +278,21 @@ public class Main {
         } else if (user.getTipo().equals("user")) {
             MenuCliente.menuCliente((Cliente) user, medicamentos, componentes, encomendas);
         } else if (user.getTipo().equals("farmaceutico")) {
-            MenuFarmaceutico.menuFarmaceutico((Farmaceutico) user, medicamentos, componentes, encomendas, categorias, excipientes);
+            MenuFarmaceutico.menuFarmaceutico((Farmaceutico) user, medicamentos, componentes, encomendas, categorias,
+                    excipientes);
         } else {
             System.out.println("Tipo de utilizador inválido");
         }
 
     }
 
-    public static void encerrarPrograma(){
-    
+    public static void encerrarPrograma() {
+
         clearScreen();
-        
-        if(user!=null){
-            System.out.println("Adeus "+user.getNome());
-        }else{
+
+        if (user != null) {
+            System.out.println("Adeus " + user.getNome());
+        } else {
             System.out.println("Adeus");
         }
         save();
@@ -270,7 +305,7 @@ public class Main {
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
             Files data = new Files(users, farmaceuticos, clientes, medicamentos, componentes, encomendas);
             out.writeObject(data);
-  
+
             out.close();
             fileOut.close();
         } catch (IOException i) {
@@ -308,7 +343,6 @@ public class Main {
         }
     }
 
-    
     public static void clearScreen() {
         try {
             if (System.getProperty("os.name").contains("Windows")) {

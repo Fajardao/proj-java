@@ -12,8 +12,7 @@ public class Files implements Serializable {
     private List<Componente> componentes;
     private List<Encomenda> encomendas;
 
-    public Files(List<Utilizadores> uusers, List<Farmaceutico> ffarmaceuticos, List<Cliente> cclientes,
-            List<Medicamento> mmedicamentos, List<Componente> ccomponentes, List<Encomenda> eencomendas) {
+    public Files(List<Utilizadores> uusers, List<Farmaceutico> ffarmaceuticos, List<Cliente> cclientes, List<Medicamento> mmedicamentos, List<Componente> ccomponentes, List<Encomenda> eencomendas) {
         this.users = uusers;
         this.farmaceuticos = ffarmaceuticos;
         this.clientes = cclientes;

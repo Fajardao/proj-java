@@ -29,4 +29,8 @@ public class Categoria implements Serializable{
         }
     }
 
+    public List<Integer> getCodigos() {
+        return codigos;
+    }
+
 }
