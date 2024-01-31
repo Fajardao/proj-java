@@ -35,6 +35,8 @@ public class MenuCliente {
             System.out.println("2 - Ver encomendas");
             System.out.println("3 - Ver dados pessoais");
             System.out.println("4 - Alterar dados pessoais");
+            System.out.println("5 - Listar encomendas");
+            System.out.println("6 - Pesquisar encomenda");
             System.out.println("0 - Logout");
 
             opcao = scanner2.nextInt();
@@ -54,6 +56,26 @@ public class MenuCliente {
                 case 4:
                     System.out.println("Alterar dados pessoais");
                     editarDadosPessoais();
+                    break;
+                case 5:
+                    System.out.println("Listar encomendas");
+                    for (Encomenda encomenda : encomendas) {
+                        if (encomenda.getCliente().equals(user)) {
+                            System.out.println(encomenda);
+                        }
+                    }
+                    break;
+                case 6:
+                    System.out.println("Pesquisar encomenda");
+                    System.out.println("Insira o id da encomenda");
+                    int id = scanner2.nextInt();
+                    scanner2.nextLine();
+
+                    for (Encomenda encomenda : encomendas) {
+                        if (encomenda.getId() == id && encomenda.getCliente().equals(user)) {
+                            System.out.println(encomenda);
+                        }
+                    }
                     break;
                 case 0:
                     System.out.println("Logout");

@@ -31,11 +31,6 @@ public class Main {
 
         load();
 
-        for (Encomenda localEncomenda : encomendas) {
-            System.out.println(localEncomenda.getConfirmado());
-
-        }
-
         while (loop == true) {
 
             clearScreen();
@@ -46,9 +41,10 @@ public class Main {
             System.out.println("O                       O");
             System.out.println("X       1 - Login       X");
             System.out.println("O      2 - Registar     O");
-            System.out.println("X       3 - Sair        X");
-            System.out.println("O                       O");
-            System.out.println("XOXOXOXOXOXOXOXOXOXOXOXOX");
+            System.out.println("X      3 - Ver Log      X");
+            System.out.println("O       0 - Sair        O");
+            System.out.println("X                       X");
+            System.out.println("OXOXOXOXOXOXOXOXOXOXOXOXO");
 
             if (erro == 1) {
                 System.out.println("\u001B[31mERRO:\u001B[0m Não existe dados anteriores guardados.");
@@ -69,7 +65,7 @@ public class Main {
                     System.out.println("Registar");
                     registar();
                     break;
-                case 3:
+                case 0:
                     System.out.println("A terminar...");
                     save();
                     loop = false;
@@ -105,7 +101,7 @@ public class Main {
 
                     System.out.println("\nEncomendas:");
                     for (Encomenda localEncomenda : encomendas) {
-                        System.out.println(localEncomenda.getMedicamento().getDesignacao());
+                        System.out.println(localEncomenda);
                     }
 
                     System.out.println("\nCategorias:");
@@ -130,6 +126,10 @@ public class Main {
                     }
 
                     loop = false;
+                    break;
+                case 3:
+                    System.out.println("Ver Log");
+                    Log.verLog();
                     break;
                 default:
                     System.out.println("Opção inválida");
@@ -164,16 +164,12 @@ public class Main {
             for (Farmaceutico localFarmaceutico : farmaceuticos) {
                 if (localFarmaceutico.getEmail().equals(email)) {
                     user = localFarmaceutico;
-                    System.out.println("1");
                     break;
                 }
-            }
-        }
-        if (user == null) {
+            }  
             for (Cliente localCliente : clientes) {
                 if (localCliente.getEmail().equals(email)) {
                     user = localCliente;
-                    System.out.println("2");
                     break;
                 }
             }
@@ -200,6 +196,7 @@ public class Main {
 
         }
         if (valid == 1) {
+            Log.log(user.getNome() + " Login");
             afterLogin();
         }
     }
@@ -234,6 +231,7 @@ public class Main {
 
             if (firstRun == 1) {
                 Utilizadores user = new Utilizadores(username, password, nome, true, email, "gestor");
+                Log.log(user.getNome() + " Registo");
                 users.add(user);
                 firstRun = 0;
             } else {
@@ -254,6 +252,7 @@ public class Main {
                         Cliente cliente = new Cliente(username, password, nome, false, email, "user", nif, morada,
                                 telefone);
                         clientes.add(cliente);
+                        Log.log(cliente.getNome() + " Registo");
                         System.out.println("Utilizador registado com sucesso\n");
                     } else {
                         System.out.println("NIF ou telefone inválidos");
@@ -270,6 +269,8 @@ public class Main {
     }
 
     public static void afterLogin() throws IOException {
+
+        Log.updateInfoSys(user);
 
         clearScreen();
 
@@ -303,7 +304,13 @@ public class Main {
         try {
             FileOutputStream fileOut = new FileOutputStream("dados_apl.dat");
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
-            Files data = new Files(users, farmaceuticos, clientes, medicamentos, componentes, encomendas);
+            List<Integer> codigos = Categoria.getCodigos();
+            int encIdCount = Encomenda.getIdCount();
+            List<String> emailsUsados = Utilizadores.getEmailsUsados();
+            List<String> loginsUsados = Utilizadores.getLoginsUsados();
+            List<Integer> nifsUsados = Utilizadores.getNifsUsados();
+            List<Integer> telefonesUsados = Utilizadores.getTelefonesUsados();
+            Files data = new Files(users, farmaceuticos, clientes, medicamentos, componentes, encomendas, codigos, encIdCount, emailsUsados, loginsUsados, nifsUsados, telefonesUsados);
             out.writeObject(data);
 
             out.close();
@@ -327,6 +334,12 @@ public class Main {
                 medicamentos = data.getMedicamentos();
                 componentes = data.getComponentes();
                 encomendas = data.getEncomendas();
+                Categoria.setCodigos(data.getCodigos());
+                Encomenda.setIdCount(data.getEncIdCount());
+                Utilizadores.setEmailsUsados(data.getEmailsUsados());
+                Utilizadores.setLoginsUsados(data.getLoginsUsados());
+                Utilizadores.setNifsUsados(data.getNifsUsados());
+                Utilizadores.setTelefonesUsados(data.getTelefonesUsados());
                 // Carregue outros dados do objeto data aqui
             } else {
                 System.out.println("Data is not of type Data");

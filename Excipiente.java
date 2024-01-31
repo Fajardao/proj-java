@@ -5,11 +5,14 @@ public class Excipiente implements Serializable {
     private String classificacaoInfarmed;
     private int quantidade;
     
-    public Excipiente(String ddesignacao, String cclassificacaoInfarmed,int qquantidade){
+    public Excipiente(String ddesignacao, String cclassificacaoInfarmed, int qquantidade) {
         this.designacao = ddesignacao;
         this.classificacaoInfarmed = cclassificacaoInfarmed;
         this.quantidade = qquantidade;
     }
     
+    public String getDesignacao() {
+        return designacao;
+    }
 
 }

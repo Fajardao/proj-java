@@ -1,0 +1,81 @@
+tre Registo
+tre Login
+tre Login
+123 Registo
+tre Login
+123 Login
+tre Login
+tre adicionou o farmacêutico 234
+234 Login
+234 adicionou o medicamento as
+123 Registo
+tre Login
+tre validou o utilizador 123
+123 Login
+tre Login
+tre confirmou a encomenda 1
+tre confirmou a encomenda 1
+234 Login
+123 Registo
+tre Login
+tre adicionou o farmacêutico 234
+tre validou o utilizador 123
+234 Login
+123 Registo
+tre Login
+tre adicionou o farmacêutico 234
+tre validou o utilizador 123
+234 Login
+123 Registo
+tre Login
+tre adicionou o farmacêutico 234
+tre validou o utilizador 123
+234 Login
+234 adicionou o medicamento 32
+123 Login
+tre Login
+tre confirmou a encomenda 2
+tre confirmou a encomenda 1
+tre Login
+tre confirmou a encomenda 2
+tre confirmou a encomenda 1
+234 Login
+123 Login
+234 Login
+234 Login
+234 Login
+234 Login
+234 Login
+234 Login
+234 Login
+234 Login
+tre Registo
+tre Login
+tre adicionou o farmacêutico 234
+123 Registo
+tre Login
+tre validou o utilizador 123
+234 Login
+234 adicionou o componente 00
+234 adicionou o medicamento 11
+234 adicionou o medicamento 11
+123 Login
+tre Login
+tre Login
+tre Login
+tre Login
+tre Login
+tre confirmou a encomenda 1
+tre confirmou a encomenda 2
+234 Login
+tre Login
+tre confirmou a encomenda 1
+tre confirmou a encomenda 2
+234 Login
+234 iniciou o processo da encomenda 1
+234 Login
+234 alterou a prioridade da encomenda 1 para urgente
+234 Login
+234 concluiu o processo da encomenda 1
+tre Login
+tre encerrou a encomenda 1

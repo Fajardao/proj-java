@@ -11,7 +11,7 @@ public class Medicamento implements Serializable{
     private Componente componenteActivo;
     private String dosagem;
     private int quantidadeStock;
-    private double precoVenda;
+    private float precoVenda;
     private int anoFabrico;
     private boolean autorizacaoMedica;
     private boolean generico;
@@ -19,7 +19,7 @@ public class Medicamento implements Serializable{
     private List<Excipiente> excipientes; //excipientes é uma lista de objetos da classe Excipiente
     
 
-    public Medicamento(String ddesignacao, String mmarca, String llaboratorio, String llote, Componente ccomponenteActivo, String ddosagem, int qquantidadeStock, double pprecoVenda, int aanoFabrico, boolean aautorizacaoMedica, boolean ggenerico) {
+    public Medicamento(String ddesignacao, String mmarca, String llaboratorio, String llote, Componente ccomponenteActivo, String ddosagem, int qquantidadeStock, float pprecoVenda, int aanoFabrico, boolean aautorizacaoMedica, boolean ggenerico) {
         this.designacao = ddesignacao;
         this.marca = mmarca;
         this.laboratorio = llaboratorio;
@@ -62,8 +62,24 @@ public class Medicamento implements Serializable{
         return designacao;
     }
 
-    public void setStock(int novoStock){
-        this.quantidadeStock=novoStock;
+    public void setStock(int novoStock) {
+        this.quantidadeStock = novoStock;
+    }
+
+    public float getPrecoVenda() {
+        return precoVenda;
+    }
+    
+    public Componente getComponenteActivo() {
+        return componenteActivo;
+    }
+
+    public int getQuantidadeStock() {
+        return quantidadeStock;
+    }
+
+    public boolean isGenerico() {
+        return generico;
     }
 
 

@@ -16,7 +16,7 @@ public class Categoria implements Serializable{
         this.codigo = ccodigo;
         this.fornecedor = ffornecedor;
 
-        this.codigos.add(ccodigo);
+        Categoria.codigos.add(ccodigo);
     }
 
     public static boolean verificaUnicidade(int ccodigo) {
@@ -29,8 +29,16 @@ public class Categoria implements Serializable{
         }
     }
 
-    public List<Integer> getCodigos() {
+    public String getDesignacao() {
+        return designacao;
+    }
+
+    public static List<Integer> getCodigos() {
         return codigos;
+    }
+
+    public static void setCodigos(List<Integer> ccodigos) {
+        codigos = ccodigos;
     }
 
 }

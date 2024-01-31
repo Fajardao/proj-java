@@ -11,6 +11,7 @@ public class Utilizadores implements Serializable {
     private boolean estado;
     private String email;
     private String tipo;
+
     private static List <String> loginsUsados=new ArrayList<>();
     private static List<String> emailsUsados = new ArrayList<>();
 
@@ -85,15 +86,51 @@ public class Utilizadores implements Serializable {
     }
 
     public static boolean verifyNifTel(int nnif, int ttelefone) {
-        boolean nifUnico= !nifsUsados.contains(nnif);
+        boolean nifUnico = !nifsUsados.contains(nnif);
         boolean telefoneUnico = !telefonesUsados.contains(ttelefone);
-        
+
         if (nifUnico && telefoneUnico) {
             return true;
         } else {
             return false;
         }
 
+    }
+
+    public static List<String> getLoginsUsados() {
+        return loginsUsados;
+    }
+
+    public static List<String> getEmailsUsados() {
+        return emailsUsados;
+    }
+
+    public static List<Integer> getNifsUsados() {
+        return nifsUsados;
+    }
+
+    public static List<Integer> getTelefonesUsados() {
+        return telefonesUsados;
+    }
+
+    public static void setLoginsUsados(List<String> loginsUsados) {
+        Utilizadores.loginsUsados = loginsUsados;
+    }
+
+    public static void setEmailsUsados(List<String> emailsUsados) {
+        Utilizadores.emailsUsados = emailsUsados;
+    }
+
+    public static void setNifsUsados(List<Integer> nifsUsados) {
+        Utilizadores.nifsUsados = nifsUsados;
+    }
+
+    public static void setTelefonesUsados(List<Integer> telefonesUsados) {
+        Utilizadores.telefonesUsados = telefonesUsados;
+    }
+
+    public String getLogin() {
+        return login;
     }
 
     public String toString() {
